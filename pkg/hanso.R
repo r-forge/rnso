@@ -1,6 +1,67 @@
 hanso=function(pars,options=c()){
-  options=setdefautlshanso(pars,options)
-  attach(options)
+  #options=setdefautlshanso(pars,options)
+  #attach(options)
+  normtol=options$normtol
+  evaldist=options$evaldist
+  fvaldist=options$fvaldist
+  prtlevel=options$prtlevel
   tmp=bfgs(pars,optios)
-  
+  x=tmp$x
+  f=tmp$f
+  d=tmp$d
+  H=tmp$H
+  if(length(f)>1){
+    f=min(f)
+    indx=which.min(f)
+    x=x[,indx]
+    d=d[,indx]
+    H=H[indx]
+    X=X[indx]
+    G=G[indx]
+    w=w[indx]
+  }
+  dnorm=norm(as.matrix(d))
+  tmp=postprocess(x,nan,dnorm,X,G,w)
+  loc=tmp$loc
+  X=tmp$X
+  G=tmp$G
+  w=tmp$w
+  #conditions check
+  if(!is.na(options$samprad)){
+    #gradient sampling
+    f_BFGS=f
+    dnorm_BFGS=dnorm
+    loc_BFGS=loc
+    d_BFGS=d
+    X_BFGS=X
+    w_BFGS=w
+    options$x0=x
+    options$maxit=min(100,options$maxit)
+    options$nstart=1
+    tmp=gradsamp(pars,options)
+    x=tmp$x
+    f=tmp$f
+    g=tmp$g
+    dnorm=tmp$dnorm
+    X=tmp$X
+    G=tmp$G
+    w=tmp$w
+    if(f==f_BFGS){
+      if(dnorm>dnorm_BFGS){
+	loc=loc_BFGS
+	d=d_BFGS
+	X=X_BFGS
+	G=G_BFGS
+	w=w_BFGS
+      }
+      else if(f<f_BFGS) {
+	tmp=postprocess(x,g,dnorm,X,G,w)
+	loc=tmp$loc
+	X=tmp$x
+	G=tmp$G
+	w=tmp$w
+      }
+    }
+  }
+  return(list(x,f,loc,X,G,w,H))
 }
