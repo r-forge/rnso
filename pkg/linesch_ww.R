@@ -5,12 +5,12 @@ linesch_ww=function(x0,f0,grad0,d,pars,c1,c2,fvalquit,prtlevel){
   xalpha=x0
   falpha=f0
   gradalpha=grad0
-  beta=inf
-  gradbeta=nan*rep(1,length(x0))
-  g0=t(grad0)%*%d
-  if(g0>=0) print("error1")
-  dnorm=norm(d,type="1")
-  if(dnorm==0) print("error2")
+  beta=Inf
+  gradbeta=NA*rep(1,length(x0))
+  g0=t(as.matrix(grad0))%*%as.matrix(d)
+  if(g0>=0) print("linesch_ww_mod:Warning, not a descent direction")
+  dnorm=norm(as.matrix(d),type="1")
+  if(dnorm==0) print("d is zero")
   t=1
   nfeval=0
   nbisect=0
@@ -18,27 +18,28 @@ linesch_ww=function(x0,f0,grad0,d,pars,c1,c2,fvalquit,prtlevel){
   nbisectmax=max(30,round(log2(1e5*dnorm)))
   nexpandmax=max(30,round(log2(1e5/dnorm)))
   done=0
-  while (?){
+  fevalrec=c()
+  while (!done){
     x=x0+t*d
     nfeval=nfeval+1
-    tmp=eval(fgname,x,pars)
+    tmp=fgtest(x,par)
     f=tmp$f
     grad=tmp$g
-    ??
+    fevalrec[nfeval]=f
     if(f<fvalquit){
       fail=0
       alpha=t
       xalpha=x
       falpha=f
       gradalpha=grad
-      return(c(alpha, xalpha, falpha, gradalpha, fail, beta, gradbeta, fevalrec))
+      return(list(alpha, xalpha, falpha, gradalpha, fail, beta, gradbeta, fevalrec))
     }
-    gtd=t(grad)%*%d
-    if(f>= f0+c1*t*g0 | is.nan(f)){
+    gtd=t(grad)%*%as.matrix(d)
+    if(f>= f0+c1*t*g0 | is.na(f)){
       beta=t
       gradbeta=grad
     }
-    if(gtd<=c2*g0*|is.nan(gtd))
+    else if(gtd<=c2*g0 | is.na(gtd))
     {
       alpha=t
       xalpha=x
@@ -52,9 +53,9 @@ linesch_ww=function(x0,f0,grad0,d,pars,c1,c2,fvalquit,prtlevel){
       gradalpha=grad
       beta=t
       gradbeta=grad
-      return(c(alpha, xalpha, falpha, gradalpha, fail, beta, gradbeta, fevalrec))
+      return(list(alpha, xalpha, falpha, gradalpha, fail, beta, gradbeta, fevalrec))
     }
-    if(beta<inf){
+    if(beta<Inf){
       if(nbisect<nbisectmax){
 	nbisect=nbisect+1
 	t=(alpha+beta)/2
@@ -69,19 +70,18 @@ linesch_ww=function(x0,f0,grad0,d,pars,c1,c2,fvalquit,prtlevel){
       else done=1
     }
   }
-  if(beta==inf){
+  if(beta==Inf){
     fail=-1
     if(prtlevel>1){
       print("Line search failed to bracket")
-      print("wolfe con...")
-    }
+      print("wolfe conditions, function may be unbounded below")
+    }}
     else{
-    fail=1
-    if(prtlevel>1)
-    {
-      print("Line search failed to bracket")
-      print("wolfe con...")
-    }
+      fail=1
+      if(prtlevel>1)
+	{ print("Line search failed to satisfy weak wolfe conditions")
+	  print("although point satisfying conditions was bracketed")
+	}
   }
 }
 
