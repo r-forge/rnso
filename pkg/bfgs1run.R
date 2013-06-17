@@ -4,7 +4,7 @@ bfgs1run=function(x0,pars,options){
   normtol=options$normtol
   fvalquit=options$fvalquit
   xnormquit=options$xnormquit
-  cpufinish=cputime+options$cpumax
+  #cpufinish=cputime+options$cpumax
   maxit=options$maxit
   nvec=options$nvec
   prtlevel=options$prtlevel
@@ -18,7 +18,7 @@ bfgs1run=function(x0,pars,options){
   H=H0
   scale=options$scale
   x=x0
-  tmp=eval(fgname(x,pars))
+  tmp=eval(fgtest(x,pars))
   f=tmp$f
   g=tmp$g
   d=g
@@ -26,28 +26,34 @@ bfgs1run=function(x0,pars,options){
   X=x
   nG=1
   w=1
-  dnorm=norm(g,type="1")
+  dnorm=norm(as.matrix(g),type="1")
   if(nvec >0){
     S=c()
     Y=c()    
   }
   iter=0
+  #initializations
+  fevalrec=NA
+  xrec=NA*as.matrix(rep(1,n))
+  Hrec=list()
   ##print error msgs
-  for(iter=1:maxit){
+  for(iter in 1:maxit){
     if(nvec==0){
-      p=-H*g
+      p=-H%*%g
     }else
       p=-hgprod(H,g,S,Y)
     gtp=t(g)%*%p
     if(gtp>=0 | is.nan(gtp)){
-      if(prtlevel >0) print("bfgs non descent...")
-    }info=6
-    return()
-  }
+      if(prtlevel >0) print("bfgs non descent direction, quit")
+      info=6
+      return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
+      }
+  
   gprev=g
   if(strongwolfe){
     fevalrecline=nan;
     tmp=linesch_sw(x,f,g,p,pars,wolfe1,wolfe2,fvalquit,prtlevel)
+    
     if(wolfe2==0){
       increase=1e-8*(1+alpha)
       x=x+increase*p
@@ -57,16 +63,30 @@ bfgs1run=function(x0,pars,options){
   }
   else {
     tmp=linesch_ww(x,f,g,p,pars,wolfe1,wolfe2,fvalquit,prtlevel)
+    alpha=tmp[[1]]
+    x=tmp[[2]]
+    f=tmp[[3]]
+    g=tmp[[4]]
+    fail=tmp[[5]]
+    fevalrecline=tmp[[8]]
   }
   if(alpha*norm(p)>evaldist){
     nG=1
     G=g
     X=x
   }
-  if(nG<ngrad){
-    G=rbind(g,G[,1:ngrad-1])
-    X=rbind(x,X[,1:ngrad-1])
+  else if(nG<ngrad){
+    #something wrong here
+    nG=nG+1
+    G=cbind(g,G[,1:ngrad-1])
+    X=cbind(x,X[,1:ngrad-1])
   }
+  else{
+    G=cbind(g,G[,1:ngrad-1])
+    X=cbind(x,X[,1:ngrad-1])
+  }
+  
+  
   if(nG>1) {
     qtemp=qpspecial(G)
     w=qtemp$w
@@ -75,8 +95,8 @@ bfgs1run=function(x0,pars,options){
    w=1
    d=g
   }
-  dnorm=norm(d)
-  xrec[,iter]=x
+  dnorm=norm(as.matrix(d))
+  xrec=cbind(xrec,x) #check this
   fevalrec[iter]=fevalrecline
   Hrec[iter]=H
   if(prtlevel>1){
@@ -87,11 +107,11 @@ bfgs1run=function(x0,pars,options){
     if(prtlevel>0) print("bfgs reached objective")
   }
   info=2
-  return(?)
+  return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
   if(norm(X)>xnormquit){
     if(prtlevel>0) print("bfgs: norm exceeds specified limit")
     info=3
-    return(?)
+    return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
   }
   if(fail==1){
     if(~quitLSfail){
@@ -99,13 +119,13 @@ bfgs1run=function(x0,pars,options){
     }else{
       if(prtlevel>0) print("bfgs: quit at iteration...")
       info=7
-      return(?)
+      return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
     }
   }
   if(fail==-1){
     if(prtlevel>0) print("bfgs: f may be unbounded below...")
     info=8
-    return(?)
+    return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
   }
   if(dnorm<=normtol){
     if(prtlevel>0){
@@ -113,14 +133,14 @@ bfgs1run=function(x0,pars,options){
       else print("bfgs: norm of smallest vector in convex hull of gradients below tolerance, quit...")
     }
     info=0
-    return(?)
+    return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
   }
-  if(cputime>cpufinish){
-    if(prtlevel>0) print("bfgs: cpu time limit exceeded, quit iteration")
-  
-    info=4
-    return(?)
-  }
+#   if(cputime>cpufinish){
+#     if(prtlevel>0) print("bfgs: cpu time limit exceeded, quit iteration")
+#   
+#     info=4
+#     return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
+#   }
   s=alpha*p
   y=g-gprev
   sty=t(s)%*%y
@@ -143,6 +163,9 @@ bfgs1run=function(x0,pars,options){
     if(scale) H=((t(s)%*%y)/(t(y)%*%y))*H0
   }
   
+}
+
+return(list(x,f,d,H,iter,info,X,G,w,fevalrec,xrec,Hrec))
 }
 
 
