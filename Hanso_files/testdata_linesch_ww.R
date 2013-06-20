@@ -18,3 +18,20 @@ fgtest=function(x,par=c()){
 }
 source('linesch_ww.R')
 #linesch_ww(x, f, g, p, pars, wolfe1, wolfe2, fvalquit, prtlevel)
+
+#testing linesch_ww coded by Hans:
+
+
+fr <- function(x) {   ## Rosenbrock Banana function
+  x1 <- x[1]
+  x2 <- x[2]
+  100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+}
+grr <- function(x) { ## Gradient of 'fr'
+  x1 <- x[1]
+  x2 <- x[2]
+  c(-400 * x1 * (x2 - x1 * x1) - 2 * (1 - x1),
+    200 *      (x2 - x1 * x1))
+}
+
+linesch_ww(fr,grr,c(-1.2,1),c(1,1))

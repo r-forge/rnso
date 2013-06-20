@@ -1,109 +1,91 @@
-linesch_ww=function(x0,f0,grad0,d,pars,c1,c2,fvalquit,prtlevel){
-  ## check for valid input ##
-  fgname=pars$fgname
-  alpha=0
-  xalpha=x0
-  falpha=f0
-  gradalpha=grad0
-  beta=Inf
-  gradbeta=NA*rep(1,length(x0))
-  g0=t(as.matrix(grad0))%*%as.matrix(d)
-  if(g0>=0) print("linesch_ww_mod:Warning, not a descent direction")
-  dnorm=norm(as.matrix(d),type="1")
-  if(dnorm==0) print("d is zero")
-  t=1
-  nfeval=0
-  nbisect=0
-  nexpand=0
-  nbisectmax=max(30,round(log2(1e5*dnorm)))
-  nexpandmax=max(30,round(log2(1e5/dnorm)))
-  done=0
-  fevalrec=c()
-  while (!done){
-    x=x0+t*d
-    nfeval=nfeval+1
-    tmp=fgtest(x,par)
-    f=tmp$f
-    grad=tmp$g
-    fevalrec[nfeval]=f
-    if(f<fvalquit){
-      fail=0
-      alpha=t
-      xalpha=x
-      falpha=f
-      gradalpha=grad
-      return(list(alpha, xalpha, falpha, gradalpha, fail, beta, gradbeta, fevalrec))
+linesch_ww <- function( fn, gr, x0, d, fn0 = fn(x0), gr0 = gr(x0),
+                        c1 = 0, c2 = 0.5,
+                        fvalquit = -Inf, prtlevel = 0 ) {
+  stopifnot(is.numeric(x0), is.numeric(d))
+  if (c1 < 0 || c1 > c2 || c2 > 1)    # 0 <= c1 <= c2 <= 1/n
+    stop("Arguments 'c1','c2' must satisfy: 0 <= c1 <= c2 <= 1/n.")
+  n <- length(x0)
+  
+  #-- steplength parameters
+  alpha  <- 0         # lower bound on steplength conditions
+  xalpha <- x0
+  falpha <- fn0
+  galpha <- gr0       # need to pass grad0, not grad0'*d, in case line search fails
+  beta   <- Inf       # upper bound on steplength satisfying weak Wolfe conditions
+  gbeta  <- rep(NA, n)
+  
+  g0 <- sum(gr0 * d)
+  if (g0 >= 0)
+    warning("Linesearch: Argument 'd' is not a descent direction.")
+  dnorm <- sqrt(sum(d * d))
+  if (dnorm == 0)
+    error(Linesearch: "Argument 'd' must have length greater zero.")
+  
+  t <- 1              # important to try steplength one first
+  nfeval   <- 0
+  nbisect  <- 0
+  nexpand  <- 0
+  nbisectmax <- max(30, round(log2(1e5*dnorm)))   # allows more if ||d|| big
+  nexpandmax <- max(10, round(log2(1e5/dnorm)))   # allows more if ||d|| small
+  
+  #-- main loop
+  fevalrec <- c()
+  fail <- 0
+  done <- FALSE
+  while (!done) {
+    x <- x0 + t*d
+    fun <- fn(x)
+    grd <- gr(x)
+    nfeval <- nfeval + 1
+    fevalrec <- c(fevalrec, fun)
+    if (fun < fvalquit) {
+      res <- list(alpha = t, xalpha = x, falpha = fun, galpha = grd,
+                  fail = fail, beta = beta, gbeta = gbeta, fevalrec = fevalrec)
+      return(res)
     }
-    gtd=t(grad)%*%as.matrix(d)
-    if(f>= f0+c1*t*g0 | is.na(f)){
-      beta=t
-      gradbeta=grad
+    
+    gtd <- sum(grd * d)
+    if (fun >= fn0 + c1*t*g0 || is.na(fun)) {# first condition violated
+      beta  <- t
+      gbeta <- grd
+    } else if (gtd <= c2*g0 || is.na(gtd)) {# second condition violated   
+      alpha  <- t
+      xalpha <- x
+      falpha <- fun
+      galpha <- grd
+    } else {# both conditions satisfied           
+      res <- list(alpha = t, xalpha = x, falpha = fun, galpha = grd,
+                  fail = fail, beta = t, gbeta = grd, fevalrec = fevalrec)
+      return(res)
     }
-    else if(gtd<=c2*g0 | is.na(gtd))
-    {
-      alpha=t
-      xalpha=x
-      falpha=f
-      gradalpha=grad
-    }else{
-      fail=0
-      alpha=t
-      xalpha=x
-      falpha=f
-      gradalpha=grad
-      beta=t
-      gradbeta=grad
-      return(list(alpha, xalpha, falpha, gradalpha, fail, beta, gradbeta, fevalrec))
-    }
-    if(beta<Inf){
-      if(nbisect<nbisectmax){
-	nbisect=nbisect+1
-	t=(alpha+beta)/2
+    
+    # set up next function evaluation
+    if (beta < Inf) {
+      if (nbisect < nbisectmax) {
+        nbisect <- nbisect + 1
+        t <- (alpha + beta)/2           # bisection
+      } else {
+        done <- TRUE
       }
-      else done=1
-      
-    }else{
-      if(nexpand<nexpandmax){
-	nexpand=nexpand+1
-	t=2*alpha
+    } else {
+      if (nexpand < nexpandmax) {
+        nexpand <- nexpand + 1
+        t <- 2*alpha                    # still in expansion mode
+      } else {
+        done <- TRUE
       }
-      else done=1
     }
+  } # end while
+  
+  # Wolfe conditions not satisfied; there are two cases:
+  if (is.infinite(beta)) {# minimizer never bracketed
+    fail <- -1
+    warning("Linesearch: Function may be unbounded from below.")
+  } else {# point satisfying Wolfe conditions bracketed
+    fail <- 1
+    warning("Linesearch: Failed to satisfy weak Wolfe conditions.")
   }
-  if(beta==Inf){
-    fail=-1
-    if(prtlevel>1){
-      print("Line search failed to bracket")
-      print("wolfe conditions, function may be unbounded below")
-    }}
-    else{
-      fail=1
-      if(prtlevel>1)
-	{ print("Line search failed to satisfy weak wolfe conditions")
-	  print("although point satisfying conditions was bracketed")
-	}
-  }
+  res <- list(alpha = t, xalpha = x, falpha = fun, galpha = grd,
+              fail = fail, beta = t, gbeta = grd, fevalrec = fevalrec)
+  return(res)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -13,10 +13,10 @@ gradsampfixed=function(x0,f0,g0,samprad,pars,options){
   fvalquit=options$fvalquit
   #
   dnorm=Inf
-  for(iter=1:maxit){
+  for(iter in 1:maxit){
     tmp=getbundle(x,g,samprad,ngrad,pars)
-    Xnew=tmp$xbundle
-    Gnew=tmp$gbundle
+    Xnew=t(as.matrix(tmp[[1]]))
+    Gnew=t(as.matrix(tmp[[2]]))
     tmp=qpspecial(Gnew)
     wnew=tmp$x
     dnew=tmp$d
