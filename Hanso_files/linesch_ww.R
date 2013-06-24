@@ -19,7 +19,7 @@ linesch_ww <- function( fn, gr, x0, d, fn0 = fn(x0), gr0 = gr(x0),
     warning("Linesearch: Argument 'd' is not a descent direction.")
   dnorm <- sqrt(sum(d * d))
   if (dnorm == 0)
-    error(Linesearch: "Argument 'd' must have length greater zero.")
+    stop(Linesearch: "Argument 'd' must have length greater zero.")
   
   t <- 1              # important to try steplength one first
   nfeval   <- 0

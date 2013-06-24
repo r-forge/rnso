@@ -42,7 +42,7 @@ bfgs1run=function(fn,gr,x0,options){
       p=-hgprod(H,g,S,Y) #why!! it i*s just computing H%*%g 
     gtp=t(g)%*%p
     if(gtp>=0 | is.nan(gtp)){
-      if(prtlevel >0) error("bfgs non descent direction, quit")
+      if(prtlevel >0) stop("bfgs non descent direction, quit")
       info=6
       #      return(list(x=x,f=f,d=d,H=H,iter=iter,info=info,X=X,G=G,w=w,fevalrec=fevalrec,xrec=xrec,Hrec=Hrec))
     }
