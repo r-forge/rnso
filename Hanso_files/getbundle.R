@@ -1,23 +1,23 @@
-getbundle=function(x,g,samprad,N,pars){
-  m=length(x)
+getbundle <- function(fn,gr,x,g=gr(x),samprad,N){
+  m <- length(x)
   #declare empty matrices
-  xbundle=list()
-  gbundle=list()
-  xbundle[1]=x
-  gbundle[1]=g
+  xbundle <- matrix(NA,m,N)
+  gbundle <- matrix(NA,m,N)
+  xbundle[,1] <- x
+  gbundle[,1] <- g
   for(k in 2:N){
-    xpert=x+samprad*(runif(m)-0.5)
-    tmp=fgtest(xpert,pars)
-    f=tmp$f
-    grad=tmp$g
-    count=0
+    xpert <- x+samprad*(runif(m)-0.5) #samprad is a scaler here
+    f <- fn(x)
+    grad <- gr(x)
+    count <- 0
     while(isnaninf(f) | isnaninf(grad)){
-      xpert=(x+xpert)/2
-      f=fgtest(xpert,pars)$f
-     # count=count+1
+      xpert <- (x+xpert)/2
+      f <- fn(x)
+      grad <- gr(x)
+     # count <- count+1
     }
-    xbundle[k]=xpert
-    gbundle[k]=grad
+    xbundle[,k] <- xpert
+    gbundle[,k] <- grad
   }
-  return(list(xbundle,gbundle))
+  return(list(xbundle=xbundle,gbundle=gbundle))
 }

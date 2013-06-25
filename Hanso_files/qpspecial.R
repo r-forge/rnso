@@ -4,7 +4,7 @@ qpspecial <- function(G,x = matrix(1,ncol(G),1),maxit = 100){
   if(length(G)  == 0){
     
     Warning('G is empty')
-    Return(list(x <- c(), q <- Inf, Info <- c(2,0))) 
+    Return(list(x = c(), q = Inf, Info = c(2,0))) 
   }
   
   maxit <- max(maxit,10) 
@@ -86,7 +86,7 @@ qpspecial <- function(G,x = matrix(1,ncol(G),1),maxit = 100){
   x <- x/sum(x)
   d <- G%*%x
   q <- t(d)%*%d
-  return(list(x <- x,d <- d,q <- q,info <- info))
+  return(list(x = x,d = d,q = q,info = info))
   
 }
 
