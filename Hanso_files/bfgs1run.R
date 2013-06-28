@@ -19,7 +19,7 @@ bfgs1run <- function(fn, gr, nvar, x0, maxit = 1000, normtol = 1e-6,
   }
   iter <- 0
   #initializations
-  fevalrec <- c()
+  fevalrec <- list()
   xrec <- list() #?
   Hrec <- list() #?
   ##print error msgs
