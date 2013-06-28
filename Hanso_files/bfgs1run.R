@@ -77,20 +77,20 @@ bfgs1run <- function(fn, gr, nvar, x0, maxit = 1000, normtol = 1e-6,
     }
     
     gprev <- g
-    if(strongwolfe){
-      fevalrecline <- nan;
-      tmp <- linesch_sw(x,f,g,p,pars,wolfe1,wolfe2,fvalquit,prtlevel)
-      
-      if(wolfe2 == 0){
-        increase <- 1e-8*(1+alpha)
-        x <- x+increase*p
-      }
-      if(prtlevel>1) warning("exact line sch simulation ")
-      f <- fn(x)
-      g <- gr(x)
+    if(strongwolfe){ # we do not have linesch_sw()
+#       fevalrecline <- nan;
+#       tmp <- linesch_sw(x,f,g,p,pars,wolfe1,wolfe2,fvalquit,prtlevel)
+#       
+#       if(wolfe2 == 0){
+#         increase <- 1e-8*(1+alpha)
+#         x <- x+increase*p
+#       }
+#       if(prtlevel>1) warning("exact line sch simulation ")
+#       f <- fn(x)
+#       g <- gr(x)
     }
     else {
-      tmp <- linesch_ww(fn, gr, x0, d=p, fn0 = fn(x0), gr0 = gr(x0),
+      tmp <- linesch_ww(fn, gr, x, d=p, fn0 = fn(x), gr0 = gr(x),
                         c1 = wolfe1, c2 = wolfe2)
       alpha <- tmp$alpha
       x <- tmp$xalpha
