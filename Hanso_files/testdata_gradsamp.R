@@ -70,6 +70,18 @@ grr <- function(x) { ## Gradient of 'fr'
 x0 <- matrix(rnorm(12),2,6)
 tmp <- gradsamp(fr,grr,2,x0)
 
+fnNesterov1 <- function(x) {
+  n <- length(x)
+  x2 <- x[2:n]; x1 <- x[1:(n-1)]
+  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
+}
+
+grNest <-function(x){
+  grad(fnNesterov1,x)}
+
+res=gradsamp(fnNesterov1,grNest,nvar=2,rep(1,2),maxit=10)
+
+
 
 
 

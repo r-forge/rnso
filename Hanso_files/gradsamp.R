@@ -1,5 +1,5 @@
-gradsamp <- function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-3,1e-4,1e-4),maxit  =  100,normtol  =  1e-4, ngrad  =  2, fvalquit  =  -Inf, prtlevel  =  1){
-  
+gradsamp <- function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6),maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, prtlevel  =  1){
+  x0=as.matrix(x0)
   nstart <- ncol(x0)
   f  <-  c()
   x  <-  matrix(NA,nvar,nstart)
@@ -7,7 +7,7 @@ gradsamp <- function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1
   dnorm  <-  c()
   X  <-  list()
   G  <-  list()
-  w  <-  matrix(NA,nvar,nstart)
+  w  <-  list()
   for(run in 1:nstart){
     f0 <- fn(x0[,run])
     g0 <- gr(x0[,run])
@@ -20,19 +20,19 @@ gradsamp <- function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1
       dnorm[run]  <-  norm(g0)
       X[[run]]  <-  x[,run]
       G[[run]]  <-  g0
-      w[,run]  <-  1
+      w[[run]]  <-  1
       
     } 
     else {
-	tmp  <-  gradsamp1run(fn,gr,x0[,run],f0,g0,samprad,maxit,normtol,ngrad,fvalquit,prtlevel)
+	tmp  <-  gradsamp1run(fn,gr,x0[,run],nvar,f0,g0,samprad,maxit,normtol,ngrad,fvalquit,prtlevel)
 	x[,run]  <-  tmp$x
 	f[run]  <-  tmp$f
 	g[,run]  <-  tmp$g
 	dnorm[run]  <-  tmp$dnorm
-	X[[run]]  <-  tmp$X
-	G[[run]]  <-  tmp$G
-	w[,run]  <-  tmp$w
+	X[[run]]  <-  as.matrix(tmp$X)
+	G[[run]]  <-  as.matrix(tmp$G)
+	w[[run]]  <-  as.matrix(tmp$w)
     }
   }
-return(list(x  <-  x,f  <-  f,g  <-  g,dnorm  <-  dnorm, X  <-  X, G  <-   G, w  <-  w))
+return(list(x  =  x,f  =  f,g  =  g,dnorm  =  dnorm, X  =  X, G  =   G, w  =  w))
 }

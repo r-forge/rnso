@@ -1,4 +1,4 @@
-gradsampfixed <- function(fn, gr, x0, f0=fn(x0), g0=gr(x0), samprad, maxit=100,normtol=1e-4, ngrad=2, fvalquit=-Inf, prtlevel=1){
+gradsampfixed <- function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr(x0), maxit=1000,normtol=1e-6, ngrad=min(2*nvar,100,nvar+10), fvalquit=-Inf, prtlevel=1){
   
   #initialisations and declarations
   x <- x0

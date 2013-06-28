@@ -32,8 +32,8 @@ bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart
     fevalrec[[run]] <- tmp$fevalrec
     xrec[[run]] <- tmp$xrec
     Hrec[[run]] <- tmp$Hrec
+    HH[[run]] <- (H+t(H))/2
   }
-  HH[[run]] <- (H+t(H))/2
   #no need for cpu break
   #no need for special formatting for nstart==1
 #   if(nstart == 1){
@@ -45,5 +45,5 @@ bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart
 #     G <- G[1]
 #     w <- w[1]
 #   }
-  return(list(x=x,f=f,d=d,H=HH,iter=iter,X=X,G=G,fevalrec=fevalrec,xrec=xrec,Hrec=Hrec))
+  return(list(x=x,f=f,d=d,H=HH,iter=iter,X=X,G=G,w=w,fevalrec=fevalrec,xrec=xrec,Hrec=Hrec))
 }
