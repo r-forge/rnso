@@ -34,5 +34,5 @@ gradsamp <- function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1
 	w[,run]  <-  tmp$w
     }
   }
-return(list(x  =  x,f  =  f,g  =  g,dnorm  =  dnorm, X  =  X, G  =   G, w  =  w))
+return(list(x  <-  x,f  <-  f,g  <-  g,dnorm  <-  dnorm, X  <-  X, G  <-   G, w  <-  w))
 }
