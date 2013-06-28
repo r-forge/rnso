@@ -18,7 +18,7 @@ bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart
   Hrec <- list()
   
   for(run in 1:nstart){
-    tmp <- bfgs1run(fn,gr,nvar=2,x0[,run])
+    tmp <- bfgs1run(fn,gr,nvar,x0[,run])
     #print(tmp)
     x[,run] <- tmp$x
     f[run] <- tmp$f
