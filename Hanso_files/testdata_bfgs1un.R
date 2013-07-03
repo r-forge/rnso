@@ -36,7 +36,7 @@ grr <- function(x) { ## Gradient of 'fr'
   c(-400 * x1 * (x2 - x1 * x1) - 2 * (1 - x1),
     200 *      (x2 - x1 * x1))
 }
-source('linesch_ww.R')
+source('linesearch.R')
 source('qpspecial.R')
 source('isnaninf.R')
 source('bfgs1run.R')

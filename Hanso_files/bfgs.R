@@ -1,7 +1,7 @@
 bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart),maxit = 1000, normtol = 1e-6, 
 		      fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1,
 		      strongwolfe = 0, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = 1,
-		      ngrad = 2, evaldist = 1e-4, H0 = diag(nvar), scale = 1)
+		      ngrad = 0, evaldist = 1e-4, H0 = NULL, scale = 1)
 		      {
   x <- matrix(NA,nvar,nstart)
   f <- c()
@@ -13,12 +13,12 @@ bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart
   X <- list()
   G <- list()
   w <- list()
-  fevalrec <- list()
-  xrec <- list()
-  Hrec <- list()
+  mess <- c()
   
   for(run in 1:nstart){
-    tmp <- bfgs1run(fn,gr,nvar,x0[,run])
+    tmp <- bfgs1run(fn,gr,x0[,run],H0, maxit,  fvalquit,
+                    normtol, xnormquit, evaldist, ngrad,
+                    scale, wolfe1, wolfe2, quitLSfail)
     #print(tmp)
     x[,run] <- tmp$x
     f[run] <- tmp$f
@@ -26,12 +26,10 @@ bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart
     H <- as.matrix(tmp$H)
     iter[run] <- tmp$iter
     info[run] <- tmp$info
+    mess[run] <- tmp$message
     X[[run]] <- tmp$X
     G[[run]] <- tmp$G
     w[[run]] <- tmp$w
-    fevalrec[[run]] <- tmp$fevalrec
-    xrec[[run]] <- tmp$xrec
-    Hrec[[run]] <- tmp$Hrec
     HH[[run]] <- (H+t(H))/2
   }
   #no need for cpu break
@@ -45,5 +43,5 @@ bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart
 #     G <- G[1]
 #     w <- w[1]
 #   }
-  return(list(x=x,f=f,d=d,H=HH,iter=iter,X=X,G=G,w=w,fevalrec=fevalrec,xrec=xrec,Hrec=Hrec))
+  return(list(x=x,f=f,d=d,H=HH,iter=iter,message=mess,X=X,G=G,w=w))
 }

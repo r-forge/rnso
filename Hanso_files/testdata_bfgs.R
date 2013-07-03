@@ -1,10 +1,9 @@
 rm(list=ls())
 source('bfgs.R')
 source('bfgs1run.R')
-source('linesch_ww.R')
+source('linesearch.R')
 source('hgprod.R')
 source('qpspecial.R')
-source('isnaninf.R')
 #source('defaults.R')
 library(numDeriv)
 
