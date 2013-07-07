@@ -28,6 +28,13 @@ hanso <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstar
     G <- G[[indx]]
     w <- w[[indx]]
   }
+  else{
+    d <- d[[1]]
+    H <- H[[1]]
+    X <- X[[1]]
+    G <- G[[1]]
+    w <- w[[1]]
+  }
   dnorm <-norm(as.matrix(d))
   tmp <-postprocess(x,NA,dnorm,X,G,w)
   loc <-tmp$loc

@@ -2,9 +2,9 @@ source('hanso.R')
 source('postprocess.R')
 source('gradsampfixed.R')
 source('qpspecial.R')
-source('isnaninf.R')
-source('linesch_ww.R')
+source('linesearch.R')
 source('getbundle.R')
+source('isnaninf.R')
 source('gradsamp1run.R')
 source('gradsamp.R')
 source('bfgs.R')
@@ -62,3 +62,16 @@ gr <- function(x) {
 }
 
 tmp=hanso(fg,gr,nvar=2)
+
+# With Hald Function
+
+fnHald <- function(x) {
+  i <- 1:21
+  t <- -1 + (i - 1)/10
+  f <- (x[1] + x[2] * t) /
+    ( 1 + x[3]*t + x[4]*t^2 + x[5]*t^3) - exp(t)
+  max(abs(f))
+}
+
+grHald <-function(x){
+  grad(fnHald,x)}
