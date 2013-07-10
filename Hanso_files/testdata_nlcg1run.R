@@ -1,0 +1,5 @@
+source('lszoom.R')
+source('linesch_sw.R')
+source('linesearch.R')
+source('nlcg1run.R')
+res <- nlcg1run(fr,grr,c(-1.2,1))
