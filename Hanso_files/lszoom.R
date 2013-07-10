@@ -1,7 +1,8 @@
-lszoom <- function(fn, gr, lo, hi, flo, glo, ghi, f0, g0, x0, d, c1, c2, partlevel){
+lszoom <- function(fn, gr, lo, hi, flo, fhi, glo, ghi, f0, g0, x0,
+		    d, c1, c2, prtlevel){
   
   cubic_interp <- function(x1,x2,f1,f2,g1,g2){
-    eta <- g1 + g2 - 3*(f1-f2)/(x1-x2) #x is one dimentional?
+    eta <- g1 + g2 - 3*(f1-f2)/(x1-x2) 
     gamma <- sign(x2-x1)*sqrt(eta^2 - g1*g2)
     xmin <- x2 - (x2 -x1)*(g2+gamma-eta)/(g2-g1+2*gamma)
     xmin
@@ -27,12 +28,11 @@ lszoom <- function(fn, gr, lo, hi, flo, glo, ghi, f0, g0, x0, d, c1, c2, partlev
   glo2 <- ghi
   nsteps <- 0
   
-  while((lo != hi) & (nsteps < 50)){
-    nteps <- nteps+1
+  while((lo != hi) && (nsteps < 50)){
+    nsteps <- nsteps+1
     bisect <- (lo + hi)/2
     interp <- cubic_interp(lo,lo2,flo,flo2,glo,glo2)
-    
-    if(inside(intep,lo,bisect)) atry <- interp
+    if(inside(interp,lo,bisect)) atry <- interp
     else atry <- bisect
     
     xtry <- x0 + atry*d
@@ -51,8 +51,8 @@ lszoom <- function(fn, gr, lo, hi, flo, glo, ghi, f0, g0, x0, d, c1, c2, partlev
 	alpha <- atry
 	x <- xtry
 	f <- ftry
-	grad <- gradtry
-	return(list(alpha = alpha, x = x, f = f, grad = grad, fail = fail, nsteps = nsteps, message =mess))
+	grd <- gradtry
+	return(list(alpha = alpha, x = x, f = f, grd = grd, fail = fail, nsteps = nsteps))
       }
       if(gtry*(hi-lo) >= 0){
 	hi <- lo
@@ -67,8 +67,13 @@ lszoom <- function(fn, gr, lo, hi, flo, glo, ghi, f0, g0, x0, d, c1, c2, partlev
     
   }
   
-  if(prtlevel >1) mess <- "linesch_sw: failed to satisfy wolfe conditions, lszoom loop ran for 50 times\n"
-  return(list(alpha = alpha, x = x, f = f, grad = grad, fail = fail, nsteps = nsteps, message =mess))
+  #if(prtlevel >1) mess <- "linesch_sw: failed to satisfy wolfe conditions, lszoom loop ran for 50 times\n"
+  alpha <- atry
+  x <- xtry
+  f <- ftry
+  grd <- gradtry
+  fail <- 1 
+  return(list(alpha = alpha, x = x, f = f, grd = grd, fail = fail, nsteps = nsteps))
   
   
   
