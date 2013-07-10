@@ -1,4 +1,7 @@
 getbundle <- function(fn,gr,x,g=gr(x),samprad,N){
+
+  is.nainf <- function(x) any(is.na(x) || is.infinite(x))
+  
   m <- length(x)
   #declare empty matrices
   xbundle <- matrix(NA,m,N)
@@ -7,17 +10,18 @@ getbundle <- function(fn,gr,x,g=gr(x),samprad,N){
   gbundle[,1] <- g
   for(k in 2:N){
     xpert <- x+samprad*(runif(m)-0.5) #samprad is a scaler here
-    f <- fn(x)
-    grad <- gr(x)
+    f <- fn(xpert)
+    grd <- gr(xpert)
     count <- 0
-    while(isnaninf(f) | isnaninf(grad)){
+    while(is.nainf(f) || is.nainf(grd)){
       xpert <- (x+xpert)/2
-      f <- fn(x)
-      grad <- gr(x)
-     # count <- count+1
+      f <- fn(xpert)
+      grd <- gr(xpert)
+      count <- count+1
+      if(count > 100) stop('getbundle: too many contractions needed to find finite f and g')
     }
     xbundle[,k] <- xpert
-    gbundle[,k] <- grad
+    gbundle[,k] <- grd
   }
   return(list(xbundle=xbundle,gbundle=gbundle))
 }

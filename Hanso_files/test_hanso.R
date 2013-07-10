@@ -75,3 +75,5 @@ fnHald <- function(x) {
 
 grHald <-function(x){
   grad(fnHald,x)}
+
+resHald=hanso(fnHald,grHald,nvar=5)
