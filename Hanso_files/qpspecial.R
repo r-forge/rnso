@@ -1,4 +1,8 @@
 qpspecial <- function(G,x = matrix(1,ncol(G),1),maxit = 100){
+  trancone <- function(p){
+    if(all(p<0)) return(1)
+    else return(min(min(p[p>0]),1))
+  }
   m <- nrow(G)
   n <- ncol(G)
   if(length(G)  == 0){
@@ -55,11 +59,9 @@ qpspecial <- function(G,x = matrix(1,ncol(G),1),maxit = 100){
     dx <- solve(C,(solve(t(C),r7)))
     dz <- (r3-z*dx)/x
     p <- -x/dx
-    ap <- min(min(p[p>0]),1)
-    if(length(ap) == 0) ap <- 1
+    ap <- trancone(p)
     p <- -z/dz
-    ad <- min(min(p[p>0]),1)
-    if(length(ad) == 0) ad <- 1
+    ad <- trancone(p)
     mauff <- (t(x+ap*dx)%*%(z+ad*dz))/n
     sig <- (mauff/mu)^delta
     r3 <- r3+rep(sig*mu,n)
@@ -72,11 +74,9 @@ qpspecial <- function(G,x = matrix(1,ncol(G),1),maxit = 100){
     dx <- solve(C,(solve(t(C),r7)))
     dz <- (r3-z*dx)/x
     p <- -x/dx
-    ap <- min(min(p[p>0]),1)
-    if(length(ap) == 0) ap <- 1
+    ap <- trancone(p)
     p <- -z/dz
-    ad <- min(min(p[p>0]),1)
-    if(length(ad) == 0) ad <- 1
+    ad <- trancone(p)
     x <- x+eta*ap*dx
     y <- y+eta*ad*dy
     z <- z+eta*ad*dz

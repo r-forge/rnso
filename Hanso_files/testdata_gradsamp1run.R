@@ -17,4 +17,4 @@ grr <- function(x) { ## Gradient of 'fr'
 }
 x0 <- c(1.2,3.8)
 tmp <- gradsamp1run(fr,grr,x0)
-gradsampfixed(fr,grr,x0,samprad=1e-3)
+gradsampfixed(fr,grr,x0,samprad=1e-3,maxit=1)

@@ -1,4 +1,1 @@
-isnaninf=function(M){
-  ini <- any(is.na(M)) || any(is.infinite(M))
-  return(ini)
-}
+is.nainf <- function(x) any(is.na(x) || is.infinite(x))

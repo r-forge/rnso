@@ -8,16 +8,17 @@ gradsamp <- function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1
   X  <-  list()
   G  <-  list()
   w  <-  list()
+  mess <- list()
   for(run in 1:nstart){
     f0 <- fn(x0[,run])
     g0 <- gr(x0[,run])
     
-    if((is.nan(f0) | f0  ==  Inf | maxit  == 0)&(prtlevel>0)){
+    if((is.na(f0)) || (f0  ==  Inf) || (maxit  == 0) && (prtlevel>0)){
       warning('Gradsamp: function is null or infinite or maxit is zero at initial point')
       f[run]  <-  f0
       x[,run]  <-  x0[,run]
       g[,run]  <-  g0
-      dnorm[run]  <-  norm(g0)
+      dnorm[run]  <-  sqrt(sum(g0*g0))
       X[[run]]  <-  x[,run]
       G[[run]]  <-  g0
       w[[run]]  <-  1
@@ -32,7 +33,9 @@ gradsamp <- function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1
 	X[[run]]  <-  as.matrix(tmp$X)
 	G[[run]]  <-  as.matrix(tmp$G)
 	w[[run]]  <-  as.matrix(tmp$w)
+	mess[[run]] <- tmp$message
     }
   }
-return(list(x  =  x,f  =  f,g  =  g,dnorm  =  dnorm, X  =  X, G  =   G, w  =  w))
+return(list(x  =  x,f  =  f,g  =  g,dnorm  =  dnorm, X  =  X, G  =   G, w  =  w,
+	    message = mess))
 }

@@ -4,8 +4,9 @@
 
 
 bfgs1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
-                     normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, ngrad = 0,
-                     scale = 1, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE)
+                     normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, 
+                     ngrad = 0, scale = 1, strongwolfe = 0, 
+                     wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE)
 {
     n <- length(x0)
     x0 <- as.matrix(x0)
@@ -64,7 +65,16 @@ bfgs1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
         }
         gprev <- g  # for BFGS update
 
-        #-- Weak line search only
+        if(strongwolfe){
+	  sls <- linesch_sw(fn, gr, x, d = p, f0 = fn(x), grad0 = gr(x),
+                          c1 = wolfe1, c2 = wolfe2, fvalquit, prtlevel)
+		    alpha <- sls$alpha
+		    x <- sls$x
+		    f <- sls$f
+		    g <- sls$grd
+		    fail <- sls$fail
+        }
+        else{
         wls <- linesch_ww(fn, gr, x, d = p, fn0 = fn(x), gr0 = gr(x),
                           c1 = wolfe1, c2 = wolfe2)
         alpha <- wls$alpha
@@ -72,7 +82,7 @@ bfgs1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
         f <- wls$falpha
         g <- as.matrix(wls$galpha)
         fail <- wls$fail
-
+	}
         # discard the saved gradients iff the new point x is not sufficiently
         # close to the previous point and replace them by new gradient
         if (alpha * norm(p, 'f') > evaldist) {
@@ -102,7 +112,7 @@ bfgs1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
             w <- 1
             d <- g
         }
-        dnorm <- norm(d, 'f')
+        dnorm <- sqrt(sum(d*d))
 
         if (f < fvalquit) {
             errno <- 2

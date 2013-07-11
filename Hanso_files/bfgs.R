@@ -18,7 +18,7 @@ bfgs <- function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart
   for(run in 1:nstart){
     tmp <- bfgs1run(fn,gr,x0[,run],H0, maxit,  fvalquit,
                     normtol, xnormquit, evaldist, ngrad,
-                    scale, wolfe1, wolfe2, quitLSfail)
+                    scale,strongwolfe, wolfe1, wolfe2, quitLSfail)
     #print(tmp)
     x[,run] <- tmp$x
     f[run] <- tmp$f

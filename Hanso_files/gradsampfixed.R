@@ -14,14 +14,13 @@ gradsampfixed <- function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr
     tmp <- getbundle(fn, gr, x, g, samprad, ngrad)
     Xnew <- tmp$xbundle
     Gnew <- tmp$gbundle
-    
     tmp <- qpspecial(Gnew)
     wnew <- tmp$x
     dnew <- tmp$d
     
     dnew <- -dnew
-    gtdnew <- t(g)%*%dnew
-    dnormnew <- norm(dnew)
+    gtdnew <- sum(g*dnew)
+    dnormnew <- sqrt(sum(dnew*dnew))
     if(dnormnew<dnorm){
       dnorm <- dnormnew
       X <- Xnew
@@ -29,11 +28,14 @@ gradsampfixed <- function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr
       w <- wnew
     }
     if(dnormnew<normtol){
-      return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall))
+      mess <- paste("gradsamp: tolerance met at iter=",iter)
+      return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
+		  message = mess))
     }
-    else if(gtdnew >=0 | is.nan(gtdnew)){
-      if (prtlevel>0) warning("not descent direction, quit")
-      return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall))
+    else if(gtdnew >=0 || is.na(gtdnew)){
+	   mess <- paste("gradsamp: not descent direction, quit at iter=",iter)
+       return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
+		  message = mess))
     }
     wolfe1 <- 0
     wolfe2 <- 0
@@ -47,14 +49,20 @@ gradsampfixed <- function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr
     
     if(f< fvalquit){
       quitall <-1
-      return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall))
+      mess <- paste("gradsamp: reached target objective, quit at iter=",iter)
+       return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
+		  message = mess))
     }
     if(fail == -1){
+      mess <- paste("gradsamp: f may be unbounded below, quit at iter =",iter)
       quitall=1
-      return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall))
+       return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
+		  message = mess))
     }
     #ommit cpu conditions
   }
-  return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall))
+  mess <- paste("completed iteration=",iter)    
+   return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
+		  message = mess))
 }  
     

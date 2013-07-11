@@ -5,7 +5,7 @@ nlcg1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
            
            {
 		
-		is.nainf <- function(x) any(is.na(x) | is.infinite(x))
+		is.nainf <- function(x) any(is.na(x) || is.infinite(x))
 		frec <- c()
 		alpharec <- c()
 		x <- x0
@@ -49,13 +49,13 @@ nlcg1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
 		  gprev <- g  
 		  
 		  if(strongwolfe){
-		    wls <- linesch_sw(fn, gr, x, d = p, f0 = fn(x), grad0 = gr(x),
+		    sls <- linesch_sw(fn, gr, x, d = p, f0 = fn(x), grad0 = gr(x),
                           c1 = wolfe1, c2 = wolfe2, fvalquit, prtlevel)
         alpha <- wls$alpha
-		    x <- wls$x
-		    f <- wls$f
-		    g <- wls$grd
-		    fail <- wls$fail
+		    x <- sls$x
+		    f <- sls$f
+		    g <- sls$grd
+		    fail <- sls$fail
 		  }
 		  else{		 
 		    wls <- linesch_ww(fn, gr, x, d = p, fn0 = fn(x), gr0 = gr(x),
