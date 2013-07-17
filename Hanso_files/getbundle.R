@@ -1,7 +1,7 @@
 getbundle <- function(fn,gr,x,g=gr(x),samprad,N){
-
-  is.nainf <- function(x) any(is.na(x) || is.infinite(x))
-  
+  is.naninf <- function(v) {
+    any(is.na(v)) || any(is.infinite(v)) || any(is.nan(v))
+  }
   m <- length(x)
   #declare empty matrices
   xbundle <- matrix(NA,m,N)

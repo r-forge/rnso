@@ -22,7 +22,7 @@ linesch_ww <- function( fn, gr, x0, d, fn0 = fn(x0), gr0 = gr(x0),
     g0 <- sum(gr0 * d)
     if (g0 >= 0)
         if (prtlevel > 0)
-            warning("Linesearch: Argument 'd' is not a descent direction.")
+            mess <- paste("Linesearch: Argument 'd' is not a descent direction.")
     dnorm <- sqrt(sum(d * d))
     if (dnorm == 0)
         stop("Linesearch: Argument 'd' must have length greater zero.")
@@ -85,11 +85,11 @@ linesch_ww <- function( fn, gr, x0, d, fn0 = fn(x0), gr0 = gr(x0),
     if (is.infinite(beta)) {# minimizer never bracketed
         fail <- -1
         if (prtlevel > 0)
-            warning("Linesearch: Function may be unbounded from below.")
+            mess <- paste("Linesearch: Function may be unbounded from below.")
     } else {# point satisfying Wolfe conditions bracketed
         fail <- 1
         if (prtlevel > 0)
-            warning("Linesearch: Failed to satisfy weak Wolfe conditions.")
+            mess <- paste("Linesearch: Failed to satisfy weak Wolfe conditions.")
     }
     
     return( list(alpha = t, xalpha = x, falpha = fun, galpha = grd,

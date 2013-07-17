@@ -7,7 +7,7 @@ gradsampfixed <- function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr
   X <- x
   G <- g
   w <- 1
-  quitall <- 0
+  quitall <- FALSE
   dnorm <- Inf
   
   for(iter in 1:maxit){
@@ -28,12 +28,14 @@ gradsampfixed <- function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr
       w <- wnew
     }
     if(dnormnew<normtol){
-      mess <- paste("gradsamp: tolerance met at iter=",iter)
+      mess <- paste("gradsamp: tolerance met at iter=",iter,"\n")
+      if(prtlevel) cat(mess)
       return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
 		  message = mess))
     }
     else if(gtdnew >=0 || is.na(gtdnew)){
-	   mess <- paste("gradsamp: not descent direction, quit at iter=",iter)
+	   mess <- paste("gradsamp: not descent direction, quit at iter=",iter,"\n")
+     if(prtlevel) cat(mess)
        return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
 		  message = mess))
     }
@@ -48,20 +50,23 @@ gradsampfixed <- function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr
     fail <- tmp$fail
     
     if(f< fvalquit){
-      quitall <-1
-      mess <- paste("gradsamp: reached target objective, quit at iter=",iter)
+      quitall <-TRUE
+      mess <- paste("gradsamp: reached target objective, quit at iter=",iter,"\n")
+      if(prtlevel) cat(mess)
        return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
 		  message = mess))
     }
     if(fail == -1){
-      mess <- paste("gradsamp: f may be unbounded below, quit at iter =",iter)
-      quitall=1
+      mess <- paste("gradsamp: f may be unbounded below, quit at iter =",iter,"\n")
+      if(prtlevel) cat(mess)
+      quitall=TRUE
        return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
 		  message = mess))
     }
     #ommit cpu conditions
   }
-  mess <- paste("completed iteration=",iter)    
+  mess <- paste("gradsamp: completed iteration=",iter,"\n")  
+  if(prtlevel) cat(mess)
    return(list(x=x, f=f, g=g, dnorm=dnorm, X=X, G=G, w=w, quitall=quitall,
 		  message = mess))
 }  

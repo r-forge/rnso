@@ -74,6 +74,7 @@ hanso <- function(fn,gr,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6,
     return(list(x=x,f=f,loc=loc,X=X,G=G,w=w,H=H))
   }
   #conditions check
+  if(prtlevel) cat("Hanso: Best value found by BFGS = ",f,"\n")
   if(length(samprad)){
     #gradient sampling
     f_BFGS <-f
@@ -112,6 +113,6 @@ hanso <- function(fn,gr,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6,
       }
       else stop('Hanso: f > f_BFGS, this should not happen')
     }
-    
+    cat("Best value found by Gradient Sampling = ",f,"\n")
     return(list(x=x,f=f,loc=loc,X=X,G=G,w=w,H=H))
 }  
