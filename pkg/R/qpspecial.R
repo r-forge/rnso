@@ -8,8 +8,8 @@ function(G,x = matrix(1,ncol(G),1),maxit = 100){
   n <- ncol(G)
   if(length(G)  == 0){
     
-    Warning('G is empty')
-    Return(list(x = c(), q = Inf, Info = c(2,0))) 
+    warning('G is empty')
+    return(list(x = c(), q = Inf, Info = c(2,0))) 
   }
   
   maxit <- max(maxit,10) 

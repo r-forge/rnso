@@ -3,10 +3,6 @@ Type: Package
 Title: An R Implementation of Hybrid Algorithm for Non-Smooth Optimization (HANSO)
 Version: 1.0
 Date: 2013-07-17
-Authors@R: c(person("Abhirup", "Mallik", role = c("aut"),
-                          email = "malli066@umn.edu"),
-		person("Hans", "Werner","Borchers", role = c("aut"),
-                          email = "hwborchers@gmail.com"))
 Author: Abhirup Mallik, University of Minnesota, Hans Werner Borchers
 Maintainer: Abhirup Mallik <malli066@umn.edu>
 Depends: R (>= 2.0)

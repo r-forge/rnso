@@ -2,7 +2,7 @@ bfgs1run <-
 function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
                      normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, 
                      ngrad = 0, scale = 1, strongwolfe = 0, 
-                     wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE)
+                     wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE,prtlevel=1)
 {
     n <- length(x0)
     x0 <- as.matrix(x0)
@@ -167,7 +167,7 @@ function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
             H <- H - t(rhoHyst) - rhoHyst + 
                      rho * s %*% (t(y) %*% rhoHyst) + rho * s %*% t(s)
         } else {
-            if (printlevel > 0)
+            if (prtlevel > 0)
                 cat("BFGS: sty<=0 during iteration, skipping bfgs update.\n")
         }
 
