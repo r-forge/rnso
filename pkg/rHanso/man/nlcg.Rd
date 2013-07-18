@@ -69,9 +69,6 @@ number of gradients willing to save and use in
            solving QP to check optimality tolerance on smallest vector in
            their convex hull; see also next two options 
 }
-  \item{scale}{
-1 to scale H0 at first iteration, 0 otherwise.
-}
   \item{wolfe1}{
 wolfe line search parameter 1.
 }
@@ -136,7 +133,4 @@ res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0,strongwolfe=0)
 res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0)
 res=nlcg(fr,nvar=2)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ optimize }
