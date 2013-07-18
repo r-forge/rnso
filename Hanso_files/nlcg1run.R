@@ -51,7 +51,7 @@ nlcg1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
 		  if(strongwolfe){
 		    sls <- linesch_sw(fn, gr, x, d = p, f0 = fn(x), grad0 = gr(x),
                           c1 = wolfe1, c2 = wolfe2, fvalquit, prtlevel)
-        alpha <- wls$alpha
+        alpha <- sls$alpha
 		    x <- sls$x
 		    f <- sls$f
 		    g <- sls$grd

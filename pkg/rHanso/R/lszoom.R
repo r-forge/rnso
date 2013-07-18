@@ -4,7 +4,8 @@ function(fn, gr, lo, hi, flo, fhi, glo, ghi, f0, g0, x0,
   
   cubic_interp <- function(x1,x2,f1,f2,g1,g2){
     eta <- g1 + g2 - 3*(f1-f2)/(x1-x2) 
-    gamma <- sign(x2-x1)*sqrt(eta^2 - g1*g2)
+    if(eta^2 > g1*g2) {gamma <- sign(x2-x1)*sqrt(eta^2 - g1*g2)}
+    else gamma <- NaN
     xmin <- x2 - (x2 -x1)*(g2+gamma-eta)/(g2-g1+2*gamma)
     xmin
   }

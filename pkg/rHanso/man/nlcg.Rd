@@ -130,11 +130,11 @@ grr <- function(x) { ## Gradient of 'fr'
   c(-400 * x1 * (x2 - x1 * x1) - 2 * (1 - x1),
     200 *      (x2 - x1 * x1))
 }
-#res=nlcg(fr,grr,nvar=2)
-#x0=matrix(c(0.2,1.3,0.9,.24),2,2)
-#res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0,strongwolfe=0)
-#res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0)
-#res=nlcg(fr,nvar=2)
+res=nlcg(fr,grr,nvar=2)
+x0=matrix(c(0.2,1.3,0.9,.24),2,2)
+res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0,strongwolfe=0)
+res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0)
+res=nlcg(fr,nvar=2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
