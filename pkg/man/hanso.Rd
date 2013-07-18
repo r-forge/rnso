@@ -141,19 +141,22 @@ grr <- function(x) { ## Gradient of 'fr'
     200 *      (x2 - x1 * x1))
 }
 
-res=hanso(fr,grr,2)
+(res=hanso(fr,grr,nvar=2))
 
-fnNesterov1 <- function(x) {
-  n <- length(x)
-  x2 <- x[2:n]; x1 <- x[1:(n-1)]
-  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
-}
-library(numDeriv) #using for numerical differentiation
+#Using Nesterov's function
+# this example needs numDeriv
+#example not run
+#fnNesterov1 <- function(x) {
+#  n <- length(x)
+#  x2 <- x[2:n]; x1 <- x[1:(n-1)]
+#  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
+#}
+#library(numDeriv) #using for numerical differentiation
 
-grNest <-function(x){
-  grad(fnNesterov1,x)}
+#grNest <-function(x){
+#  grad(fnNesterov1,x)}
 
-res=hanso(fnNesterov1,grNest,nvar=2)
+#res=hanso(fnNesterov1,grNest,nvar=2)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

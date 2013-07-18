@@ -9,5 +9,7 @@ Authors@R: c(person("Abhirup", "Mallik", role = c("aut"),
                           email = "hwborchers@gmail.com"))
 Author: Abhirup Mallik, University of Minnesota, Hans Werner Borchers
 Maintainer: Abhirup Mallik <malli066@umn.edu>
+Depends: R (>= 2.0)
+Suggests: numDeriv
 Description: An R package based on the BFGS and gradient sampling methods. For general unconstrained minimization: convex or nonconvex, smooth or nonsmooth, including BFGS, limited memory BFGS and gradient sampling methods, based on weak Wolfe line search. 
 License: MIT

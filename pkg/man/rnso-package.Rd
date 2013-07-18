@@ -52,7 +52,7 @@ grr <- function(x) { ## Gradient of 'fr'
 #BFGS
 (res=bfgs(fr,grr,nvar=2)) # using all the default parameters, using weak wolfe search
 #HANSO
-(res=hanso(fr,grr,2))
+(res=hanso(fr,grr,nvar=2))
 #Gradient sampling
 x0 <- matrix(rnorm(12),2,6)
 (tmp <- gradsamp(fr,grr,2,x0))

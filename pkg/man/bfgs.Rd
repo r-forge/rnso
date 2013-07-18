@@ -129,17 +129,19 @@ res
 res=bfgs(fr,grr,nvar=2,strongwolfe=1) # using strong wolfe search
 res
 # Nesterov's function in 5 dimention
-fnNesterov1 <- function(x) {
-  n <- length(x)
-  x2 <- x[2:n]; x1 <- x[1:(n-1)]
-  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
-}
-library(numDeriv) #using for numerical differentiation
-grNest <-function(x){
-  grad(fnNesterov1,x)}
+# package numDeriv is required for running this example.
+# example not run
+#fnNesterov1 <- function(x) {
+#  n <- length(x)
+#  x2 <- x[2:n]; x1 <- x[1:(n-1)]
+#  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
+#}
+#library(numDeriv) #using for numerical differentiation
+#grNest <-function(x){
+#  grad(fnNesterov1,x)}
 
-res=bfgs(fnNesterov1,grNest,nvar=5)
-res
+#res=bfgs(fnNesterov1,grNest,nvar=5)
+#res
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
