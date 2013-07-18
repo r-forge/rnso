@@ -10,7 +10,7 @@ Minimization algorithm intended for nonsmooth, nonconvex functions,
 
 }
 \usage{
-hanso(fn, gr, x0 = NULL, nvar = 0, nstart = 10, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04, H0 = diag(nvar), scale = 1, samprad = c(1e-04, 1e-05, 1e-06))
+hanso(fn, gr=NULL, x0 = NULL, nvar = 0, nstart = 10, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04, H0 = diag(nvar), scale = 1, samprad = c(1e-04, 1e-05, 1e-06))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,7 +18,7 @@ hanso(fn, gr, x0 = NULL, nvar = 0, nstart = 10, maxit = 1000, normtol = 1e-06, f
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
 }
   \item{gr}{
-A function to return the gradient for fn(x).
+Optional input. A function to return the gradient for fn(x). If not provided, will be calculated internally.
 }
   \item{x0}{
 Matrix, with dimension (nvar x nstart), each column represent an initial guess.
@@ -144,19 +144,14 @@ grr <- function(x) { ## Gradient of 'fr'
 (res=hanso(fr,grr,nvar=2))
 
 #Using Nesterov's function
-# this example needs numDeriv
 #example not run
 #fnNesterov1 <- function(x) {
 #  n <- length(x)
 #  x2 <- x[2:n]; x1 <- x[1:(n-1)]
 #  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
 #}
-#library(numDeriv) #using for numerical differentiation
 
-#grNest <-function(x){
-#  grad(fnNesterov1,x)}
-
-#res=hanso(fnNesterov1,grNest,nvar=2)
+#res=hanso(fnNesterov1,nvar=2)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

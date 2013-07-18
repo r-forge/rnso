@@ -15,7 +15,7 @@ BFGS is normally used for optimizing smooth, not necessarily convex,
 
 }
 \usage{
-bfgs(fn, gr, nvar, nstart = 10, x0 = matrix(rnorm(nvar * nstart), nvar, nstart), maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = 0, evaldist = 1e-04, H0 = NULL, scale = 1)
+bfgs(fn, gr=NULL, nvar=0, nstart = 10, x0 = NULL, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = 0, evaldist = 1e-04, H0 = NULL, scale = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,7 +23,7 @@ bfgs(fn, gr, nvar, nstart = 10, x0 = matrix(rnorm(nvar * nstart), nvar, nstart),
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
 }
   \item{gr}{
-A function to return the gradient for fn(x).
+Optional input. A function to return the gradient for fn(x). If not provided, will be calculated internally.
 }
   \item{nvar}{
 Number of parameters that fn() takes.
@@ -129,18 +129,14 @@ res
 res=bfgs(fr,grr,nvar=2,strongwolfe=1) # using strong wolfe search
 res
 # Nesterov's function in 5 dimention
-# package numDeriv is required for running this example.
 # example not run
 #fnNesterov1 <- function(x) {
 #  n <- length(x)
 #  x2 <- x[2:n]; x1 <- x[1:(n-1)]
 #  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
 #}
-#library(numDeriv) #using for numerical differentiation
-#grNest <-function(x){
-#  grad(fnNesterov1,x)}
 
-#res=bfgs(fnNesterov1,grNest,nvar=5)
+#res=bfgs(fnNesterov1,nvar=5)
 #res
 
 }

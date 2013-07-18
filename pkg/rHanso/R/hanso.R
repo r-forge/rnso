@@ -1,5 +1,5 @@
 hanso <-
-function(fn,gr,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6, 
+function(fn,gr=NULL,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6, 
 		      fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1,
 		      strongwolfe = 0, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = 1,
 		      ngrad  =  min(100,2*nvar,nvar+10), evaldist = 1e-4, H0 = diag(nvar), scale = 1,
@@ -23,6 +23,11 @@ function(fn,gr,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6,
     x0 <- matrix(rnorm(nvar*nstart),nvar,nstart)
   }
     
+  if(is.null(gr)){
+    gr <- function(x){
+      grad_nso(fn,x,dir="forward")
+    }
+  }
   
   tmp <- bfgs(fn,gr,nvar,nstart,x0,maxit, normtol, 
 		      fvalquit, xnormquit, nvec , prtlevel ,

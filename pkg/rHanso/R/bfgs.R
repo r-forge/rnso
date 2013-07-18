@@ -1,9 +1,34 @@
 bfgs <-
-function(fn,gr,nvar,nstart=10,x0 = matrix(rnorm(nvar*nstart),nvar,nstart),maxit = 1000, normtol = 1e-6, 
+function(fn,gr=NULL,nvar=0,nstart=10,x0 = NULL,maxit = 1000, normtol = 1e-6, 
 		      fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1,
 		      strongwolfe = 0, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = 1,
 		      ngrad = 0, evaldist = 1e-4, H0 = NULL, scale = 1)
 		      {
+            
+		        if(!is.null(x0)){
+		          
+		          if(class(x0) == "numeric"){
+		            x0 <- t(x0)
+		            nstart <- 1
+		            nvar = length(x0)
+		          }
+		          else if(class(x0) == "matrix"){
+		            nvar <- nrow(x0)
+		            nstart <- ncol(x0)
+		          }
+		          else stop("unknown initial value matrix, please enter a numeric vector or matrix")
+		        }
+		        else{
+		          nstart <- 10
+		          x0 <- matrix(rnorm(nvar*nstart),nvar,nstart)
+		        }
+		        
+		        if(is.null(gr)){
+		          gr <- function(x){
+		            grad_nso(fn,x,dir="forward")
+		          }
+		        }
+		        
   x <- matrix(NA,nvar,nstart)
   f <- c()
   d <- list()

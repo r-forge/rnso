@@ -1,7 +1,13 @@
 linesch_ww <-
-function( fn, gr, x0, d, fn0 = fn(x0), gr0 = gr(x0),
+function( fn, gr=NULL, x0, d, fn0 = fn(x0), gr0 = gr(x0),
                         c1 = 0, c2 = 0.5,
                         fvalquit = -Inf, prtlevel = 0 ) {
+    
+  if(is.null(gr)){
+    gr <- function(x){
+      grad_nso(fn,x,dir="forward")
+    }
+  }
     stopifnot(is.numeric(x0), is.numeric(d))
     if (c1 < 0 || c1 > c2 || c2 > 1)    # 0 <= c1 <= c2 <= 1/n
         stop("Arguments 'c1','c2' must satisfy: 0 <= c1 <= c2 <= 1/n.")

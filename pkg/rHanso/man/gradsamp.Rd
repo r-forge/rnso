@@ -100,18 +100,14 @@ tmp <- gradsamp(fr,grr,2,x0)
 tmp
 
 #using Nesterov's function
-# This example needs numDeriv
 # example not run
 #fnNesterov1 <- function(x) {
 #  n <- length(x)
 #  x2 <- x[2:n]; x1 <- x[1:(n-1)]
 #  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
 #}
-#library(numDeriv) #using for numerical differentiation
-#grNest <-function(x){
-#  grad(fnNesterov1,x)}
 
-#res=gradsamp(fnNesterov1,grNest,nvar=2,rep(1,2),maxit=10)
+#res=gradsamp(fnNesterov1,nvar=2,rep(1,2),maxit=10)
 #res
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

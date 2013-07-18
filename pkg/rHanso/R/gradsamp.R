@@ -1,5 +1,12 @@
 gradsamp <-
-function(fn,gr,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6),maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, prtlevel  =  1){
+function(fn,gr=NULL,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6),maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, prtlevel  =  1){
+  
+  if(is.null(gr)){
+    gr <- function(x){
+      grad_nso(fn,x,dir="forward")
+    }
+  }  
+  
   x0=as.matrix(x0)
   nstart <- ncol(x0)
   f  <-  c()
