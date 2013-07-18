@@ -39,7 +39,7 @@ maximum number of iterations.
 }
   \item{normtol}{
 termination tolerance on d: smallest vector in
-           convex hull of up to options.ngrad gradients
+           convex hull of up to ngrad gradients
           (default: 1e-6) 
 }
   \item{fvalquit}{
