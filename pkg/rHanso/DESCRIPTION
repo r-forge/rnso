@@ -1,4 +1,4 @@
-Package: rnso
+Package: rHanso
 Type: Package
 Title: An R Implementation of Hybrid Algorithm for Non-Smooth Optimization (HANSO)
 Version: 1.0

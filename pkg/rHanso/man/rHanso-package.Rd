@@ -1,6 +1,6 @@
-\name{rnso-package}
-\alias{rnso-package}
-\alias{rnso}
+\name{rHanso-package}
+\alias{rHanso-package}
+\alias{rHanso}
 \docType{package}
 \title{
 Hybrid Algorithm for Non-Smooth Optimization (HANSO)
