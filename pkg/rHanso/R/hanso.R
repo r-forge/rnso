@@ -8,7 +8,7 @@ function(fn,gr=NULL,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6,
   if(!is.null(x0)){
     
     if(class(x0) == "numeric"){
-      x0 <- t(x0)
+      x0 <- matrix(x0)
       nstart <- 1
       nvar = length(x0)
     }
@@ -42,7 +42,8 @@ function(fn,gr=NULL,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6,
   X <- tmp$X
   G <- tmp$G
   w <- tmp$w
-
+  
+  
   if(length(f)>1){
     indx <- which.min(f)
     f <- f[indx]
@@ -117,7 +118,7 @@ function(fn,gr=NULL,x0 = NULL,nvar=0,nstart=10,maxit = 1000, normtol = 1e-6,
 	G <-tmp$G
 	w <-tmp$w
       }
-      else stop('Hanso: f > f_BFGS, this should not happen')
+      else warning('Hanso: f > f_BFGS, this should not happen')
     }
     cat("Best value found by Gradient Sampling = ",f,"\n")
     return(list(x=x,f=f,loc=loc,X=X,G=G,w=w,H=H))

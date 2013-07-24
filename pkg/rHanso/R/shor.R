@@ -7,7 +7,7 @@ shor <- function(fn,gr=NULL,nvar=0,nstart=10,x0=NULL, maxit = 1000,  fvalquit = 
   if(!is.null(x0)){
     
     if(class(x0) == "numeric"){
-      x0 <- t(x0)
+      x0 <- matrix(x0)
       nstart <- 1
       nvar = length(x0)
     }
