@@ -1,6 +1,6 @@
 \name{linesch_sw}
 \alias{linesch_sw}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 strong Wolfe line search
 }
@@ -14,7 +14,7 @@ with CG, where strong Wolfe condition needed for
 \usage{
 linesch_sw(fn, gr, x0, d, f0 = fn(x0), grad0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{fn}{
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
@@ -49,9 +49,7 @@ quit if f gets below this value.
 prints messages if this is 1
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 returns a list containing the following fields: \cr
 \item{alpha}{steplength satisfying Wolfe conditions}
@@ -70,17 +68,10 @@ Numerical Optimization by
 Jorge Nocedal and   Stephen J. Wright
 }
 \author{
-Abhirup Mallik, Hans Werner Borchers
-}
-\note{
-%%  ~~further notes~~
+  Copyright (c) 2010 Michael Overton for Matlab code and documentation,
+  with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]

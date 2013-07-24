@@ -1,6 +1,5 @@
 \name{linesch_ww}
 \alias{linesch_ww}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Weak wolfe line search
 }
@@ -11,7 +10,6 @@ Line search enforcing weak Wolfe conditions, suitable
 \usage{
 linesch_ww(fn, gr, x0, d, fn0 = fn(x0), gr0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fn}{
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
@@ -105,21 +103,12 @@ returns a list containing:
              (vector of nans if beta is inf)}
 \item{fevalrec}{record of function evaluations}
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
-Abhirup Mallik, Hans Werner Borchers
-}
-\note{
-%%  ~~further notes~~
+  Copyright (c) 2010 Michael Overton for Matlab code and documentation,
+  with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]

@@ -1,6 +1,5 @@
 \name{gradsamp}
 \alias{gradsamp}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Gradient sampling algorithm for Non-Smooth Non-Convex Minimization
 }
@@ -12,7 +11,6 @@ Intended for nonconvex functions that are continuous everywhere and for
 \usage{
 gradsamp(fn, gr, nvar, x0, f0 = fn(x0), g0 = gr(x0), samprad = c(1e-04, 1e-05, 1e-06), maxit = 1000, normtol = 1e-06, ngrad = min(100, 2 * nvar, nvar + 10), fvalquit = -Inf, prtlevel = 1)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fn}{
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
@@ -51,9 +49,7 @@ quit, if f reaches this value.
   prints messages if this is 1
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 Returns a list containing the following fields:
 \item{x}{a matrix with k'th column containing final value of x obtained from k'th column of x0.}
@@ -72,17 +68,10 @@ J.V. Burke, A.S. Lewis and M.L. Overton,
     SIAM J. Optimization, 2005
 }
 \author{
-Abhirup Mallik, Hans Werner Borchers
-}
-\note{
-%%  ~~further notes~~
+  Copyright (c) 2010 Michael Overton for Matlab code and documentation,
+  with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]
@@ -110,7 +99,6 @@ tmp
 #res=gradsamp(fnNesterov1,nvar=2,rep(1,2),maxit=10)
 #res
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
 \keyword{ optimize, nonsmooth}
 

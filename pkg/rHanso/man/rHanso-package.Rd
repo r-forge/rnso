@@ -22,12 +22,12 @@ hanso(): Hanso algorithm\cr
 bfgs(): Minimiza function using BFGS\cr
 gradsamp(): Gradient sampling algorithm for non smooth (and smooth) functions\cr
 linesch_sw(): Strong wolfe line search\cr
-linesch_ww(): Weak wolfe line search
+linesch_ww(): Weak wolfe line search \cr
+nclg(): Non Linear Conjugate gradient minimization.
 }
 \author{
-Abhirup Mallik, University of Minnesota, Hans Werner Borchers
-
-Maintainer: Abhirup Mallik <malli066@umn.edu>
+  Copyright (c) 2010 Michael Overton for Matlab code and documentation,
+  with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
 \references{
 A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008. \cr

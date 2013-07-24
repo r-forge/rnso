@@ -1,6 +1,5 @@
 \name{hanso}
 \alias{hanso}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 HANSO: Hybrid Algorithm for Nonsmooth Optimization
 }
@@ -12,7 +11,6 @@ Minimization algorithm intended for nonsmooth, nonconvex functions,
 \usage{
 hanso(fn, gr=NULL, x0 = NULL, nvar = 0, nstart = 10, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04, H0 = diag(nvar), scale = 1, samprad = c(1e-04, 1e-05, 1e-06))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fn}{
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
@@ -117,17 +115,10 @@ A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008. \cr
       SIAM J. Optimization 15 (2005), pp. 751-779
 }
 \author{
-Abhirup Mallik, Hans Werner Borchers
-}
-\note{
-%%  ~~further notes~~
+  Copyright (c) 2010 Michael Overton for Matlab code and documentation,
+  with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]

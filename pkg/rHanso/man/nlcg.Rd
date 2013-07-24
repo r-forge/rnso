@@ -10,7 +10,6 @@ Nonlinear Conjugate Gradient minimization
 \usage{
 nlcg(fn, gr = NULL, nvar = 0, nstart = 10, x0 = NULL, H0 = NULL, maxit = 1000, fvalquit = -Inf, prtlevel = 0, version = "C", normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, scale = 1, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, strongwolfe = 1)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fn}{
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
@@ -111,7 +110,8 @@ Returns a list containing the following fields:
    by Dai-Yuan and Hager-Zhang.
 }
 \author{
-Abhirup Mallik, Hans Werner Borchers
+  Copyright (c) 2010 Michael Overton for Matlab code and documentation,
+  with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
 
 
@@ -128,9 +128,8 @@ grr <- function(x) { ## Gradient of 'fr'
     200 *      (x2 - x1 * x1))
 }
 res=nlcg(fr,grr,nvar=2)
-x0=matrix(c(0.2,1.3,0.9,.24),2,2)
-res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0,strongwolfe=0)
-res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0)
-res=nlcg(fr,nvar=2)
+## Following examples are not run, please uncomment them to run.
+#x0=matrix(c(0.2,1.3,0.9,.24),2,2)
+#res=nlcg(fr,grr,nvar=2,nstart=2,x0=x0,strongwolfe=0) #using weak wolfe
 }
 \keyword{ optimize }
