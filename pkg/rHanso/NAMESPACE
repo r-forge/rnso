@@ -1,2 +1,2 @@
-export(hanso,linesch_sw,linesch_ww,gradsamp,bfgs,nlcg)
+export(hanso,linesch_sw,linesch_ww,gradsamp,bfgs,nlcg,shor)
 

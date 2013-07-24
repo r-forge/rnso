@@ -23,7 +23,8 @@ bfgs(): Minimiza function using BFGS\cr
 gradsamp(): Gradient sampling algorithm for non smooth (and smooth) functions\cr
 linesch_sw(): Strong wolfe line search\cr
 linesch_ww(): Weak wolfe line search \cr
-nclg(): Non Linear Conjugate gradient minimization.
+nclg(): Non Linear Conjugate gradient minimization.\cr
+shor(): An inplementation of Shor's R algorithm.
 }
 \author{
   Copyright (c) 2010 Michael Overton for Matlab code and documentation,

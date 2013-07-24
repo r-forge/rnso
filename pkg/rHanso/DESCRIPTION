@@ -3,9 +3,7 @@ Type: Package
 Title: An R Implementation of Hybrid Algorithm for Non-Smooth Optimization (HANSO)
 Version: 0.1
 Date: 2013-07-17
-Author:
-  Copyright (c) 2010 Michael Overton for Matlab code and documentation,
-  with permission converted to R by Abhirup Mallik (and Hans W Borchers).
+Author: Abhirup Mallik and Hans W Borchers, converted with permission from Matlab code by Michael Overton.
 Maintainer: Abhirup Mallik <malli066@umn.edu>
 Depends: R (>= 2.0)
 Suggests: numDeriv

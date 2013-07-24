@@ -81,9 +81,7 @@ Initial inverse hessian approximation. Default is NULL}
   \item{scale}{1 to scale H0 at first iteration, 0 otherwise.
 }
 }
-\details{
 
-}
 \value{
 Returns a list containing the following fields:
 \item{x}{a matrix with k'th column containing final value of x obtained from k'th column of x0.}
