@@ -163,9 +163,16 @@ function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
             }
             
             rho <- 1/sty
-            rhoHyst <- rho * (H %*% y) %*% t(s)
-            H <- H - t(rhoHyst) - rhoHyst + 
-                     rho * s %*% (t(y) %*% rhoHyst) + rho * s %*% t(s)
+#             rhoHyst <- rho * (H %*% y) %*% t(s)
+#             H <- H - t(rhoHyst) - rhoHyst + 
+#                      rho * s %*% (t(y) %*% rhoHyst) + rho * s %*% t(s) ## this was in old version
+            # new update for symmetry
+            Hy <- H%*%y
+            rhoHyst <- (rho*Hy)%*%t(s)
+            ytHy <- t(y)%*%Hy
+            sstfactor <- max(rho*rho*ytHy,0)
+            sscaled <- sqrt(sstfactor)*s
+            H <- H-(t(rhoHyst)+rhoHyst)+sscaled%*%t(sscaled)
         } else {
             if (prtlevel > 0)
                 cat("BFGS: sty<=0 during iteration, skipping bfgs update.\n")
