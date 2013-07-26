@@ -1,2 +1,8 @@
-export(hanso,linesch_sw,linesch_ww,gradsamp,bfgs,nlcg,shor)
+
+export(linesch_sw,linesch_ww)
+# export(qpspecial)
+export(gradsamp)
+export(bfgs, nlsg)
+export(hanso)
+export(shor)
 

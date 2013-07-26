@@ -1,11 +1,10 @@
 Package: rHanso
 Type: Package
 Title: An R Implementation of Hybrid Algorithm for Non-Smooth Optimization (HANSO)
-Version: 0.1
-Date: 2013-07-17
-Author: Abhirup Mallik and Hans W Borchers, converted with permission from Matlab code by Michael Overton.
+Version: 0.2-1
+Date: 2013-07-26
+Author: Abhirup Mallik and Hans W Borchers
 Maintainer: Abhirup Mallik <malli066@umn.edu>
-Depends: R (>= 2.0)
-Suggests: numDeriv
+Depends: R (>= 2.11.1)
 Description: An R package based on the BFGS and gradient sampling methods. For general unconstrained minimization: convex or nonconvex, smooth or nonsmooth, including BFGS, limited memory BFGS and gradient sampling methods, based on weak Wolfe line search. 
-License: MIT
+License: GPL (>= 3)

@@ -12,7 +12,6 @@ BFGS is normally used for optimizing smooth, not necessarily convex,
    as a weak Wolfe line search is used. This version of BFGS will work
    well both for smooth and nonsmooth functions and has a stopping 
    criterion that applies for both cases, described above.
-
 }
 \usage{
 bfgs(fn, gr=NULL, nvar=0, nstart = 10, x0 = NULL, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = 0, evaldist = 1e-04, H0 = NULL, scale = 1)
