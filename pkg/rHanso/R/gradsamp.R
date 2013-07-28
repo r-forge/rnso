@@ -1,5 +1,5 @@
 gradsamp <-
-function(fn,gr=NULL,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6),maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, prtlevel  =  1){
+function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6),maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, prtlevel  =  1){
   
   if(is.null(gr)){
     gr <- function(x){
@@ -33,7 +33,7 @@ function(fn,gr=NULL,nvar,x0,f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-
       
     } 
     else {
-	tmp  <-  gradsamp1run(fn,gr,x0[,run],nvar,f0,g0,samprad,maxit,normtol,ngrad,fvalquit,prtlevel)
+	tmp  <-  gradsamp1run(fn,gr,x0[,run],dir,nvar,f0,g0,samprad,maxit,normtol,ngrad,fvalquit,prtlevel)
 	x[,run]  <-  tmp$x
 	f[run]  <-  tmp$f
 	g[,run]  <-  tmp$g

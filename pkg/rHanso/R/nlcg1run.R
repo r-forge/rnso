@@ -1,4 +1,4 @@
-nlcg1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf, 
+nlcg1run <- function(fn, gr, x0,dir, H0 = NULL, maxit = 1000,  fvalquit = -Inf, 
 		      strongwolfe = 1, version = 'C', prtlevel = 0,
                      normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, ngrad = 0,
                      scale = 1, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE)
@@ -49,7 +49,7 @@ nlcg1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
 		  gprev <- g  
 		  
 		  if(strongwolfe){
-		    sls <- linesch_sw(fn, gr, x, d = p, f0 = fn(x), grad0 = gr(x),
+		    sls <- linesch_sw(fn, gr, x, dir,d = p, f0 = fn(x), grad0 = gr(x),
                           c1 = wolfe1, c2 = wolfe2, fvalquit, prtlevel)
         alpha <- sls$alpha
 		    x <- sls$x
@@ -58,7 +58,7 @@ nlcg1run <- function(fn, gr, x0, H0 = NULL, maxit = 1000,  fvalquit = -Inf,
 		    fail <- sls$fail
 		  }
 		  else{		 
-		    wls <- linesch_ww(fn, gr, x, d = p, fn0 = fn(x), gr0 = gr(x),
+		    wls <- linesch_ww(fn, gr, x,dir, d = p, fn0 = fn(x), gr0 = gr(x),
                           c1 = wolfe1, c2 = wolfe2)
 		    alpha <- wls$alpha
 		    x <- wls$xalpha

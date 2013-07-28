@@ -1,5 +1,5 @@
 gradsampfixed <-
-function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr(x0), maxit=1000,normtol=1e-6, ngrad=min(2*nvar,100,nvar+10), fvalquit=-Inf, prtlevel=1){
+function(fn, gr, x0, dir="forward",nvar=length(x0), samprad, f0=fn(x0), g0=gr(x0), maxit=1000,normtol=1e-6, ngrad=min(2*nvar,100,nvar+10), fvalquit=-Inf, prtlevel=1){
   
   #initialisations and declarations
   x <- x0
@@ -43,7 +43,7 @@ function(fn, gr, x0, nvar=length(x0), samprad, f0=fn(x0), g0=gr(x0), maxit=1000,
     wolfe1 <- 0
     wolfe2 <- 0
    
-    tmp <- linesch_ww(fn,gr,x,dnew,f,g,wolfe1,wolfe2,fvalquit,prtlevel)
+    tmp <- linesch_ww(fn,gr,x,dir,dnew,f,g,wolfe1,wolfe2,fvalquit,prtlevel)
     alpha <- tmp$alpha
     x <- tmp$xalpha
     f <- tmp$falpha

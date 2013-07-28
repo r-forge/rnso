@@ -1,5 +1,5 @@
 bfgs <-
-function(fn,gr=NULL,nvar=0,nstart=10,x0 = NULL,maxit = 1000, normtol = 1e-6, 
+function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0 = NULL,maxit = 1000, normtol = 1e-6, 
 		      fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1,
 		      strongwolfe = 0, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = 1,
 		      ngrad = 0, evaldist = 1e-4, H0 = NULL, scale = 1)
@@ -42,7 +42,7 @@ function(fn,gr=NULL,nvar=0,nstart=10,x0 = NULL,maxit = 1000, normtol = 1e-6,
   mess <- c()
   
   for(run in 1:nstart){
-    tmp <- bfgs1run(fn,gr,x0[,run],H0, maxit,  fvalquit,
+    tmp <- bfgs1run(fn,gr,x0[,run],dir,H0, maxit,  fvalquit,
                     normtol, xnormquit, evaldist, ngrad,
                     scale,strongwolfe, wolfe1, wolfe2, quitLSfail,prtlevel)
     #print(tmp)

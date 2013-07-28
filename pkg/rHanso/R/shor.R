@@ -1,4 +1,4 @@
-shor <- function(fn,gr=NULL,nvar=0,nstart=10,x0=NULL, maxit = 1000,  fvalquit = -Inf, beta = 0.5,
+shor <- function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0=NULL, maxit = 1000,  fvalquit = -Inf, beta = 0.5,
                      normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, 
                      ngrad = 0, rescale = 0, strongwolfe = 0, useprevstep = 0,
                      wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE,prtlevel=1)
@@ -40,7 +40,7 @@ shor <- function(fn,gr=NULL,nvar=0,nstart=10,x0=NULL, maxit = 1000,  fvalquit = 
   svrec <- list()
   
   for(run in 1:nstart){
-    res <- shor1run(fn,gr,x0[,run], maxit,  fvalquit, beta,
+    res <- shor1run(fn,gr,x0[,run],dir, maxit,  fvalquit, beta,
                     normtol, xnormquit, evaldist, 
                     ngrad, rescale, strongwolfe, useprevstep,
                     wolfe1, wolfe2, quitLSfail,prtlevel)

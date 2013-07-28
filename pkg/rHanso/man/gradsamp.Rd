@@ -9,7 +9,7 @@ Intended for nonconvex functions that are continuous everywhere and for
    to be nondifferentiable at some points, typically including minimizers.
 }
 \usage{
-gradsamp(fn, gr, nvar, x0, f0 = fn(x0), g0 = gr(x0), samprad = c(1e-04, 1e-05, 1e-06), maxit = 1000, normtol = 1e-06, ngrad = min(100, 2 * nvar, nvar + 10), fvalquit = -Inf, prtlevel = 1)
+gradsamp(fn, gr, nvar, x0,dir="forward", f0 = fn(x0), g0 = gr(x0), samprad = c(1e-04, 1e-05, 1e-06), maxit = 1000, normtol = 1e-06, ngrad = min(100, 2 * nvar, nvar + 10), fvalquit = -Inf, prtlevel = 1)
 }
 \arguments{
   \item{fn}{
@@ -24,6 +24,7 @@ Number of parameters that fn() takes.
   \item{x0}{
 Initial guess of x.
 }
+\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
   \item{f0}{
 fn(x0). Optional, is taken as input to reduce computation.
 }

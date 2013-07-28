@@ -8,7 +8,7 @@ Nonlinear Conjugate Gradient minimization
    is intended for minimizing smooth, not necessarily convex, functions.
 }
 \usage{
-nlcg(fn, gr = NULL, nvar = 0, nstart = 10, x0 = NULL, H0 = NULL, maxit = 1000, fvalquit = -Inf, prtlevel = 0, version = "C", normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, scale = 1, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, strongwolfe = 1)
+nlcg(fn, gr = NULL,dir="forward", nvar = 0, nstart = 10, x0 = NULL, H0 = NULL, maxit = 1000, fvalquit = -Inf, prtlevel = 0, version = "C", normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, scale = 1, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, strongwolfe = 1)
 }
 \arguments{
   \item{fn}{
@@ -17,6 +17,7 @@ A function to be minimized. fn(x) takes input as a vector of parameters over whi
   \item{gr}{
 Optional input. A function to return the gradient for fn(x). If not provided, will be calculated internally.
 }
+\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
   \item{nvar}{
 Number of parameters that fn() takes.
 }

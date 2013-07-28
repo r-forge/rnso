@@ -1,6 +1,5 @@
 \name{bfgs}
 \alias{bfgs}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Optimization using BFGS
 }
 \description{
@@ -14,9 +13,8 @@ BFGS is normally used for optimizing smooth, not necessarily convex,
    criterion that applies for both cases, described above.
 }
 \usage{
-bfgs(fn, gr=NULL, nvar=0, nstart = 10, x0 = NULL, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = 0, evaldist = 1e-04, H0 = NULL, scale = 1)
+bfgs(fn, gr=NULL,dir="forward", nvar=0, nstart = 10, x0 = NULL, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = 0, evaldist = 1e-04, H0 = NULL, scale = 1)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fn}{
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
@@ -24,6 +22,7 @@ A function to be minimized. fn(x) takes input as a vector of parameters over whi
   \item{gr}{
 Optional input. A function to return the gradient for fn(x). If not provided, will be calculated internally.
 }
+\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
   \item{nvar}{
 Number of parameters that fn() takes.
 }
@@ -130,7 +129,6 @@ res
 #res
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+
 \keyword{ optimization, nonsmooth }
 

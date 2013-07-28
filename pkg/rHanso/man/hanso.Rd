@@ -9,7 +9,7 @@ Minimization algorithm intended for nonsmooth, nonconvex functions,
 
 }
 \usage{
-hanso(fn, gr=NULL, x0 = NULL, nvar = 0, nstart = 10, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04, H0 = diag(nvar), scale = 1, samprad = c(1e-04, 1e-05, 1e-06))
+hanso(fn, gr=NULL, x0 = NULL,dir="forward", nvar = 0, nstart = 10, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04, H0 = diag(nvar), scale = 1, samprad = c(1e-04, 1e-05, 1e-06))
 }
 \arguments{
   \item{fn}{
@@ -21,6 +21,7 @@ Optional input. A function to return the gradient for fn(x). If not provided, wi
   \item{x0}{
 Matrix, with dimension (nvar x nstart), each column represent an initial guess.
 }
+\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
   \item{nvar}{
 Number of parameters that fn() takes.
 }

@@ -7,7 +7,7 @@ Shor's R Algorithm
 Shor's R algorithm for unconstrained minimization of smooth and non smooth functions.
 }
 \usage{
-shor(fn, gr, nvar = 0, nstart = 10, x0 = NULL, maxit = 1000, fvalquit = -Inf, beta = 0.5, normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, rescale = 0, strongwolfe = 0, useprevstep = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, prtlevel = 1)
+shor(fn, gr,dir="forward", nvar = 0, nstart = 10, x0 = NULL, maxit = 1000, fvalquit = -Inf, beta = 0.5, normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, rescale = 0, strongwolfe = 0, useprevstep = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, prtlevel = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +17,7 @@ A function to be minimized. fn(x) takes input as a vector of parameters over whi
   \item{gr}{
 Optional input. A function to return the gradient for fn(x). If not provided, will be calculated internally.
 }
+\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
   \item{nvar}{
 Number of parameters that fn() takes.
 }

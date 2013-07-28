@@ -1,5 +1,5 @@
 linesch_sw <-
-function(fn, gr=NULL, x0, d, f0 = fn(x0), grad0 = gr(x0),
+function(fn, gr=NULL, x0,dir="forward", d, f0 = fn(x0), grad0 = gr(x0),
 			c1 = 0, c2 = 0.5,
 			fvalquit = -Inf, prtlevel = 0){
 			
