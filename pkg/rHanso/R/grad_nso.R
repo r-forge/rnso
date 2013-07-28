@@ -10,6 +10,8 @@ grad_nso <-
     if (length(fn(x0)) != 1) 
       stop("Function 'f' must be a univariate function of n variables.")
     
+    dir <- match.arg(dir)
+    
     n <- length(x0)
     hh <- rep(0, n)
     gr <- matrix(NA, nrow = , ncol = 1)

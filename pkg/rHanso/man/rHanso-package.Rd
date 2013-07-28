@@ -13,9 +13,15 @@ both BFGS and gradient sampling methods. It also provides the users the option t
 \tabular{ll}{
 Package: \tab rnso\cr
 Type: \tab Package\cr
+<<<<<<< .mine
+Version: \tab 1.0\cr
+Date: \tab 2013-07-17\cr
+License: \tab GPL\cr
+=======
 Version: \tab 0.2-1\cr
 Date: \tab 2013-07-26\cr
 License: \tab GPL (>= 3)\cr
+>>>>>>> .r44
 }
 The main functions of this package are:
 \itemize{
@@ -29,9 +35,13 @@ The main functions of this package are:
 }
 }
 \author{
+<<<<<<< .mine
+Abhirup Mallik and Hans W Borchers
+=======
 Abhirup Mallik and Hans W Borchers
 
 Maintainer: Abhirup Mallik <malli066@umn.edu>
+>>>>>>> .r44
 }
 \references{
 A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008.\cr

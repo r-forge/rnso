@@ -94,6 +94,6 @@ function( fn, gr=NULL, x0, d, fn0 = fn(x0), gr0 = gr(x0),
             mess <- paste("Linesearch: Failed to satisfy weak Wolfe conditions.")
     }
     
-    return( list(alpha = t, xalpha = x, falpha = fun, galpha = grd,
-                 fail = fail, beta = t, gbeta = grd, fevalrec = fevalrec) )
+    list(alpha = t, xalpha = x, falpha = fun, galpha = grd,
+                 fail = fail, beta = t, gbeta = grd, fevalrec = fevalrec)
 }

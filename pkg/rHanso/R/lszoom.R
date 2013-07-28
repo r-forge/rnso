@@ -2,27 +2,6 @@ lszoom <-
 function(fn, gr, lo, hi, flo, fhi, glo, ghi, f0, g0, x0,
 		    d, c1, c2, prtlevel){
   
-  cubic_interp <- function(x1,x2,f1,f2,g1,g2){
-    eta <- g1 + g2 - 3*(f1-f2)/(x1-x2) 
-    if(eta^2 > g1*g2) {gamma <- sign(x2-x1)*sqrt(eta^2 - g1*g2)}
-    else gamma <- NaN
-    xmin <- x2 - (x2 -x1)*(g2+gamma-eta)/(g2-g1+2*gamma)
-    xmin
-  }
-  
-  inside <- function(x, a, b){
-    isin <- 0
-    if(is.na(x)) return(isin)
-    if(a <= b){
-      if(x >= a & x <= b)
-	isin <- 1
-    }
-    else{
-      if(x >= b & x <= a)
-	isin <- 1
-    }
-  isin  
-  }
   
   fail <- 0
   lo2 <- hi
@@ -42,7 +21,7 @@ function(fn, gr, lo, hi, flo, fhi, glo, ghi, f0, g0, x0,
     gradtry <- gr(xtry)
     gtry <- sum(gradtry*d)
     
-    if(ftry > f0+c1*atry*g0 | ftry >= flo){
+    if (ftry > f0+c1*atry*g0 || ftry >= flo){
       hi <- atry
       lo2 <- hi
       flo2 <- ftry
@@ -69,18 +48,35 @@ function(fn, gr, lo, hi, flo, fhi, glo, ghi, f0, g0, x0,
     
   }
   
-  #if(prtlevel >1) mess <- "linesch_sw: failed to satisfy wolfe conditions, lszoom loop ran for 50 times\n"
+  if(prtlevel >1) cat("linesch_sw: failed to satisfy wolfe conditions, lszoom loop ran for 50 times\n")
   alpha <- atry
   x <- xtry
   f <- ftry
   grd <- gradtry
   fail <- 1 
-  return(list(alpha = alpha, x = x, f = f, grd = grd, fail = fail, nsteps = nsteps))
-  
-  
-  
-  
-  
-  
-  
+  list(alpha = alpha, x = x, f = f, grd = grd, fail = fail, nsteps = nsteps)
+    
 }
+
+cubic_interp <- function(x1,x2,f1,f2,g1,g2){
+  eta <- g1 + g2 - 3*(f1-f2)/(x1-x2) 
+  if(eta^2 > g1*g2) {gamma <- sign(x2-x1)*sqrt(eta^2 - g1*g2)}
+  else gamma <- NaN
+  xmin <- x2 - (x2 -x1)*(g2+gamma-eta)/(g2-g1+2*gamma)
+  xmin
+}
+
+inside <- function(x, a, b){
+  isin <- 0
+  if(is.na(x)) return(isin)
+  if(a <= b){
+    if(x >= a & x <= b)
+      isin <- 1
+  }
+  else{
+    if(x >= b & x <= a)
+      isin <- 1
+  }
+  isin  
+}
+

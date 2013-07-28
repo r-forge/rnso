@@ -20,6 +20,9 @@ function(fn, gr=NULL, x0, d, f0 = fn(x0), grad0 = gr(x0),
 			dnorm <- sqrt(sum(d * d))
 			if (dnorm == 0)
 			  stop("Linesearch: Argument 'd' must have length greater zero.")
+  if (fvalquit != -Inf)
+    stop("Linesearch: option 'fvalquit' has not yet been implemented.")
+  
 			
 			old <- 0
 			fold <- f0
@@ -83,11 +86,7 @@ function(fn, gr=NULL, x0, d, f0 = fn(x0), grad0 = gr(x0),
 			fail <- -1
 			nsteps <- 0
 			
-			return(list(alpha = alpha, x = x, f =f, grd = grd, fail = fail, 
-			nsteps = nsteps, message = mess))
-			    
+list(alpha = alpha, x = x, f =f, grd = grd, fail = fail, 
+			nsteps = nsteps, message = mess)
 
-			
-			  
-			  
-			}
+	}

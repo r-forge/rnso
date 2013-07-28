@@ -10,14 +10,11 @@ nlcg <- function(fn,gr=NULL,nvar=0,nstart=10,x0 = NULL,
       x0 <- t(x0)
       nstart <- 1
       nvar = length(x0)
-    }
-    else if(class(x0) == "matrix"){
+    }else if(class(x0) == "matrix"){
       nvar <- nrow(x0)
       nstart <- ncol(x0)
-    }
-    else stop("unknown initial value matrix, please enter a numeric vector or matrix")
-  }
-  else{
+    }else stop("unknown initial value matrix, please enter a numeric vector or matrix")
+  }else{
     nstart <- 10
     x0 <- matrix(rnorm(nvar*nstart),nvar,nstart)
   }
@@ -47,6 +44,6 @@ nlcg <- function(fn,gr=NULL,nvar=0,nstart=10,x0 = NULL,
 			alpharec[[run]] <- tmp$alpharec
 			message[[run]] <- tmp$message
 			}
-			return(list(x = x, f = f, g = g, frec = frec, 
-				alpharec = alpharec, message = message))
+			list(x = x, f = f, g = g, frec = frec, 
+				alpharec = alpharec, message = message)
 		      }
