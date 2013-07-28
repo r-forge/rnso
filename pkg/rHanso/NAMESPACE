@@ -2,7 +2,7 @@
 export(linesch_sw,linesch_ww)
 # export(qpspecial)
 export(gradsamp)
-export(bfgs, nlsg)
+export(bfgs, nlcg)
 export(hanso)
 export(shor)
 
