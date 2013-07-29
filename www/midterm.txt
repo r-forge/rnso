@@ -1,0 +1,17 @@
+Midterm evaluation of Project RNSO
+
+Result: rHanso package. This is an R implementation of Matlab package Hanso. This also includes nclg package and Shor's R algorithm.
+
+Weekly breakdown:
+
+WK1 : linesearch
+WK2 : BFGS
+WK3 : Gradient sampling
+WK4 : Hanso
+WK5 : nlcg, shor's R
+
+Comment: Modified some part of Hanso. Rversion can handle non smooth functions without requiring the user providing any numerical differentiation code. rHanso is equivalent to the latest version of Hanso (2.02).
+
+Next Phase:
+
+Implement SIDPSM
