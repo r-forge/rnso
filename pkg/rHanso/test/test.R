@@ -53,4 +53,15 @@ fchainwood <- function(x){
 }
 res=hanso(fchainwood,nvar=6)
 
+#generalized broyden tridiagonal function
+broyden <- function(x){
+  n <- length(x)
+  x <- c(0,x,0)
+  sum <- 0
+  for(i in 2:n+1){
+    sum <- sum+(abs((3-2*x[i])*x[i]-x[i-1]-x[i+1]+1))^(7/3)
+  }
+  sum
+}
+res <- hanso(broyden,nvar=10)
 
