@@ -6,3 +6,6 @@ export(bfgs, nlcg)
 export(hanso)
 export(shor)
 
+##  Test functions
+export(shor_f, shor_g)
+
