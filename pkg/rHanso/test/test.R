@@ -60,6 +60,11 @@ resoptim = optim(c(-3,-1,-3,-1,-2,0),fchainwood)
 wood4 <- function(x){
   100*(x[2]-x[1]^2)^2+(x[1]-1)^2+90*(x[4]-x[3]^2)^2+(1-x[3])^2+10.1*((x[2]-1)^2+(x[4]-1)^2)+19.8*(x[2]-1)*(x[4]-1)
 }
+x0 <- c(-3,-1,-3,-1)
+res = hanso(wood4,x0=x0) #100 iterations might not be enough for gradient sampling, for this function.
+#try with 2000 iterations for maxitgs, this might take a while
+res = hanso(wood4,x0=x0,maxitgs=2000)
+
 
 #generalized broyden tridiagonal function prob 5
 broyden <- function(x){
