@@ -48,3 +48,8 @@ shor_g <- function(x) {
     }
     2 * b[k] * (x - A[, k])
 }
+
+
+
+
+
