@@ -9,7 +9,7 @@ Minimization algorithm intended for nonsmooth, nonconvex functions,
 
 }
 \usage{
-hanso(fn, gr=NULL, x0 = NULL,dir="forward", nvar = 0, nstart = 10,
+hanso(fn, gr = NULL, x0 = NULL,dir = "forward", nvar = 0, nstart = 10,
       maxit = 1000, maxitgs=100, normtol = 1e-06, fvalquit = -Inf,
       xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0,
       wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1,
@@ -89,14 +89,14 @@ vector of sampling radii. For gradient sampling.
 \details{
 It is a two phase process, BFGS phase works for smooth functions, gradient
 sampling phase works for non smooth ones. Gradient sampling uses the minimum 
-point found by BFGS as its starting point.\cr
-\cr
+point found by BFGS as its starting point.
+
 BFGS phase: BFGS is run from multiple starting points, taken from
        the columns of x0, if provided, and otherwise 10 points
        generated randomly. If the termination test was satisfied at the
        best point found by BFGS, HANSO terminates;
-       otherwise, it continues to:\cr
-       \cr
+       otherwise, it continues to:
+
       Gradient sampling phases: 3 gradient sampling phases are run from 
        lowest point found, using sampling radii: 
        10*evaldist, evaldist, evaldist/10
@@ -129,36 +129,67 @@ A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008. \cr
   \email{malli066@umn.edu}
 }
 \seealso{
-\code{\link{bfgs}}, \code{\link{gradsamp}}, \code{\link{nlcg}},  \code{\link{shor}}
+\code{\link{shor}}, \code{\link{gradsamp}}
 }
 
 \examples{
-fr <- function(x) {   ## Rosenbrock Banana function
-  x1 <- x[1]
-  x2 <- x[2]
-  100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+## Nesterov function in 2 dimensions
+nesterov_f <- function(x) {
+    x1 <- x[1]; x2 <- x[2]
+    1/4*(x1-1)^2 + abs(x2 - 2*x1^2+1)
+ }
+
+nesterov_g <- function(x) {     # analytical gradient
+    g <- matrix(NA, 2, 1)
+    x1 <- x[1]; x2 <- x[2]
+    sgn <- sign(x2 - 2*x1^2 + 1)
+    if (sgn != 0) {
+        g[1] <- 0.5*(x1-1) - sgn*4*x1
+        g[2] <- sgn
+    }
+    g
+ }
+
+ hanso(nesterov_f, nesterov_g, nvar = 2)
+ 
+ # Hanso: Best value found by BFGS =  0.1401677 
+ # gradsamp: not descent direction, quit at iter= 93 
+ # gradsamp: not descent direction, quit at iter= 9 
+ # gradsamp: not descent direction, quit at iter= 1 
+ # Best value found by Gradient Sampling =  1.065261e-09 
+ # $x
+ #           [,1]
+ # [1,] 0.9999712
+ # [2,] 0.9998849
+ #
+ # $f
+ # [1] 1.065261e-09
+ # 
+ # ...
+
+\dontrun{
+## Shor's piecewise quadratic function
+hanso(shor_f, shor_g, nvar=5)
+
+# Hanso: Best value found by BFGS =  24.99301 
+# gradsamp: not descent direction, quit at iter= 100 
+# gradsamp: not descent direction, quit at iter= 38 
+# gradsamp: not descent direction, quit at iter= 7 
+# Best value found by Gradient Sampling =  22.60016 
+# $x
+#           [,1]
+# [1,] 1.1243379
+# [2,] 0.9794677
+# [3,] 1.4777124
+# [4,] 0.9202101
+# [5,] 1.1242998
+# 
+# $f
+# [1] 22.60016
+# 
+# ...
+ }
 }
-grr <- function(x) { ## Gradient of 'fr'
-  x1 <- x[1]
-  x2 <- x[2]
-  c(-400 * x1 * (x2 - x1 * x1) - 2 * (1 - x1),
-    200 *      (x2 - x1 * x1))
-}
 
-(res=hanso(fr,grr,nvar=2))
-
-#Using Nesterov's function
-#example not run
-#fnNesterov1 <- function(x) {
-#  n <- length(x)
-#  x2 <- x[2:n]; x1 <- x[1:(n-1)]
-#  1/4*(x[1]-1)^2 + sum(abs(x2-2*x1^2+1))
-#}
-
-#res=hanso(fnNesterov1,nvar=2)
-
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ optimize, nonsmooth }
-
+\keyword{ optimize }
+\keyword{ nonsmooth }
