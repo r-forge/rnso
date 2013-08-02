@@ -1,5 +1,23 @@
 gradsamp <-
 function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6),maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, prtlevel  =  1){
+  if(!is.null(x0)){
+    
+    if(class(x0) == "numeric"){
+      x0 <- matrix(x0)
+      nstart <- 1
+      nvar = length(x0)
+    }
+    else if(class(x0) == "matrix"){
+      nvar <- nrow(x0)
+      nstart <- ncol(x0)
+      if(nstart>1) stop("gradient sampling does not support multiple starting point, please use only on point")
+    }
+    else stop("unknown initial value matrix, please enter a numeric vector or matrix")
+  }
+  else{
+    nstart <- 1
+    x0 <- matrix(rnorm(nvar*nstart),nvar,nstart)
+  }
   
   if(is.null(gr)){
     gr <- function(x){
@@ -7,8 +25,8 @@ function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad 
     }
   }  
   
-  x0=as.matrix(x0)
-  nstart <- ncol(x0)
+  #x0=as.matrix(x0)
+  #nstart <- ncol(x0)
   f  <-  c()
   x  <-  matrix(NA,nvar,nstart)
   g  <-  matrix(NA,nvar,nstart)

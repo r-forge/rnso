@@ -47,13 +47,19 @@ fchainwood <- function(x){
   sum <-0
   for(j in 1:((n-2)/2)){
     i <- 2*j
-    sum <- sum + 100*(x[i-1]^2-x[i])^2+(x[i-1]-1)^2+90*(x[i+1]^2-x[i+2])^2
+    sum <- sum + 100*(x[i-1]^2-x[i])^2+(x[i-1]-1)^2+90*(x[i+1]^2-x[i+2])^2+(x[i+1]-1)^2+(10*x[i]+x[i+2]-2)^2+((x[i]-x[i+2])^2)/10
   }
   sum
 }
 res=hanso(fchainwood,x0=c(-3,-1,-3,-1,-2,0))
 #compare with optim
 resoptim = optim(c(-3,-1,-3,-1,-2,0),fchainwood)
+
+#wood in 4 dimentions
+
+wood4 <- function(x){
+  100*(x[2]-x[1]^2)^2+(x[1]-1)^2+90*(x[4]-x[3]^2)^2+(1-x[3])^2+10.1*((x[2]-1)^2+(x[4]-1)^2)+19.8*(x[2]-1)*(x[4]-1)
+}
 
 #generalized broyden tridiagonal function prob 5
 broyden <- function(x){

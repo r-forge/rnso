@@ -1,5 +1,5 @@
 hanso <-
-function(fn,gr=NULL,x0 = NULL,dir="forward",nvar=0,nstart=10,maxit = 1000, normtol = 1e-6, 
+function(fn,gr=NULL,x0 = NULL,dir="forward",nvar=0,nstart=10,maxit = 1000,maxitgs=100, normtol = 1e-6, 
 		      fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1,
 		      strongwolfe = 0, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = 1,
 		      ngrad  =  min(100,2*nvar,nvar+10), evaldist = 1e-4, H0 = diag(nvar), scale = 1,
@@ -92,9 +92,9 @@ function(fn,gr=NULL,x0 = NULL,dir="forward",nvar=0,nstart=10,maxit = 1000, normt
     G_BFGS <- G
     w_BFGS <-w
     x0 <-x
-    maxit=min(100,maxit)
+    #maxitgs=min(100,maxitgs)
     nstart <-1
-    tmp <-gradsamp(fn,gr,nvar,x0,dir,f0  =  fn(x0), g0  =  gr(x0), samprad,maxit,normtol, ngrad, fvalquit, prtlevel)
+    tmp <-gradsamp(fn,gr,nvar,x0,dir,f0  =  fn(x0), g0  =  gr(x0), samprad,maxitgs,normtol, ngrad, fvalquit, prtlevel)
     x <-tmp$x
     f <-tmp$f
     g <-tmp$g
