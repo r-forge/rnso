@@ -1,7 +1,7 @@
 Package: rHanso
 Type: Package
 Title: An R Implementation of Hybrid Algorithm for Non-Smooth Optimization (HANSO)
-Version: 0.2-2
+Version: 0.3-1
 Date: 2013-08-01
 Author: Abhirup Mallik and Hans W Borchers
 Maintainer: Abhirup Mallik <malli066@umn.edu>

@@ -8,7 +8,11 @@ Nonlinear Conjugate Gradient minimization
    is intended for minimizing smooth, not necessarily convex, functions.
 }
 \usage{
-nlcg(fn, gr = NULL,dir="forward", nvar = 0, nstart = 10, x0 = NULL, H0 = NULL, maxit = 1000, fvalquit = -Inf, prtlevel = 0, version = "C", normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, scale = 1, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, strongwolfe = 1)
+nlcg(fn, gr = NULL,dir="forward", nvar = 0, nstart = 10,
+      x0 = NULL, H0 = NULL, maxit = 1000, fvalquit = -Inf,
+      prtlevel = 0, version = "C", normtol = 1e-06,
+      xnormquit = Inf, evaldist = 1e-04, ngrad = 0, scale = 1,
+      wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, strongwolfe = 1)
 }
 \arguments{
   \item{fn}{
@@ -115,7 +119,9 @@ Returns a list containing the following fields:
   with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
 
-
+\seealso{
+\code{\link{hanso}}, \code{\link{gradsamp}}, \code{\link{bfgs}},  \code{\link{shor}}
+}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]

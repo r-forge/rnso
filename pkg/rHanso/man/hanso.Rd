@@ -9,7 +9,12 @@ Minimization algorithm intended for nonsmooth, nonconvex functions,
 
 }
 \usage{
-hanso(fn, gr=NULL, x0 = NULL,dir="forward", nvar = 0, nstart = 10, maxit = 1000, maxitgs=100, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04, H0 = diag(nvar), scale = 1, samprad = c(1e-04, 1e-05, 1e-06))
+hanso(fn, gr=NULL, x0 = NULL,dir="forward", nvar = 0, nstart = 10,
+      maxit = 1000, maxitgs=100, normtol = 1e-06, fvalquit = -Inf,
+      xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0,
+      wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1,
+      ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04,
+      H0 = diag(nvar), scale = 1, samprad = c(1e-04, 1e-05, 1e-06))
 }
 \arguments{
   \item{fn}{
@@ -121,6 +126,10 @@ A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008. \cr
 \author{
   Copyright (c) 2010 Michael Overton for Matlab code and documentation,
   with permission converted to R by Abhirup Mallik (and Hans W Borchers).
+  \email{malli066@umn.edu}
+}
+\seealso{
+\code{\link{bfgs}}, \code{\link{gradsamp}}, \code{\link{nlcg}},  \code{\link{shor}}
 }
 
 \examples{

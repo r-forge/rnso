@@ -120,6 +120,6 @@ function(fn,gr=NULL,x0 = NULL,dir="forward",nvar=0,nstart=10,maxit = 1000,maxitg
       }
       else warning('Hanso: f > f_BFGS, this should not happen')
     }
-    cat("Best value found by Gradient Sampling = ",f,"\n")
+    if(prtlevel >0) cat("Best value found by Gradient Sampling = ",f,"\n")
     return(list(x=x,f=f,loc=loc,X=X,G=G,w=w,H=H))
 }

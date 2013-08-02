@@ -8,7 +8,8 @@ Line search enforcing weak Wolfe conditions, suitable
            for minimizing both smooth and nonsmooth functions. Intended to be called from Hanso, but can be used by itself also.
 }
 \usage{
-linesch_ww(fn, gr, x0,dir="forward", d, fn0 = fn(x0), gr0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
+linesch_ww(fn, gr, x0,dir="forward", d, fn0 = fn(x0), 
+        gr0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
 }
 \arguments{
   \item{fn}{
@@ -109,7 +110,9 @@ returns a list containing:
   Copyright (c) 2010 Michael Overton for Matlab code and documentation,
   with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
-
+\seealso{
+\code{\link{linesch_sw}}
+}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]

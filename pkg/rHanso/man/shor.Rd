@@ -7,7 +7,12 @@ Shor's R Algorithm
 Shor's R algorithm for unconstrained minimization of smooth and non smooth functions.
 }
 \usage{
-shor(fn, gr,dir="forward", nvar = 0, nstart = 10, x0 = NULL, maxit = 1000, fvalquit = -Inf, beta = 0.5, normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, rescale = 0, strongwolfe = 0, useprevstep = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, prtlevel = 1)
+shor(fn, gr,dir="forward", nvar = 0, nstart = 10, 
+    x0 = NULL, maxit = 1000, fvalquit = -Inf,
+    beta = 0.5, normtol = 1e-06, xnormquit = Inf,
+    evaldist = 1e-04, ngrad = 0, rescale = 0,
+    strongwolfe = 0, useprevstep = 0, wolfe1 = 1e-04,
+    wolfe2 = 0.5, quitLSfail = TRUE, prtlevel = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -97,7 +102,9 @@ Returns a list containing the following fields:
   Copyright (c) 2010 Michael Overton for Matlab code and documentation,
   with permission converted to R by Abhirup Mallik (and Hans W Borchers).
   }
-
+\seealso{
+\code{\link{hanso}}, \code{\link{gradsamp}}, \code{\link{nlcg}},  \code{\link{bfgs}}
+}
 \examples{
 fnNesterov2 <- function(x) {
  n <- length(x)

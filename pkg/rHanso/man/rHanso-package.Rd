@@ -19,18 +19,18 @@ License: \tab GPL (>= 3)\cr
 }
 The main functions of this package are:
 \itemize{
-\item hanso(): Hanso algorithm
-\item bfgs(): Minimiza function using BFGS
-\item gradsamp(): Gradient sampling algorithm for non smooth (and smooth) functions
-\item linesch_sw(): Strong wolfe line search
-\item linesch_ww(): Weak wolfe line search
-\item nclg(): Non Linear Conjugate gradient minimization
-\item shor(): An inplementation of Shor's R algorithm
+\item  \code{\link{hanso}}: Hanso algorithm
+\item \code{\link{bfgs}}: Minimiza function using BFGS
+\item \code{\link{gradsamp}}: Gradient sampling algorithm for non smooth (and smooth) functions
+\item \code{\link{linesch_sw}}: Strong wolfe line search
+\item \code{\link{linesch_ww}}: Weak wolfe line search
+\item \code{\link{nlcg}}: Non Linear Conjugate gradient minimization
+\item \code{\link{shor}}: An inplementation of Shor's R algorithm
 }
 }
 \author{
 Abhirup Mallik and Hans W Borchers
-Maintainer: Abhirup Mallik <malli066@umn.edu>
+Maintainer: Abhirup Mallik \email{malli066@umn.edu}
 }
 \references{
 A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008.\cr

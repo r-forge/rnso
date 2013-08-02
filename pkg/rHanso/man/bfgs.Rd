@@ -13,7 +13,12 @@ BFGS is normally used for optimizing smooth, not necessarily convex,
    criterion that applies for both cases, described above.
 }
 \usage{
-bfgs(fn, gr=NULL,dir="forward", nvar=0, nstart = 10, x0 = NULL, maxit = 1000, normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = 1, ngrad = 0, evaldist = 1e-04, H0 = NULL, scale = 1)
+bfgs(fn, gr=NULL,dir="forward", nvar=0, nstart = 10, 
+      x0 = NULL, maxit = 1000, normtol = 1e-06,
+      fvalquit = -Inf, xnormquit = Inf, nvec = 0,
+      prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04,
+      wolfe2 = 0.5, quitLSfail = 1, ngrad = 0, evaldist = 1e-04,
+      H0 = NULL, scale = 1)
 }
 \arguments{
   \item{fn}{
@@ -100,7 +105,9 @@ A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008.
   Copyright (c) 2010 Michael Overton for Matlab code and documentation,
   with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
-
+\seealso{
+\code{\link{hanso}}, \code{\link{gradsamp}}, \code{\link{nlcg}},  \code{\link{shor}}
+}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
 x1 <- x[1]

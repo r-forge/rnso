@@ -9,7 +9,12 @@ Intended for nonconvex functions that are continuous everywhere and for
    to be nondifferentiable at some points, typically including minimizers.
 }
 \usage{
-gradsamp(fn, gr, nvar, x0,dir="forward", f0 = fn(x0), g0 = gr(x0), samprad = c(1e-04, 1e-05, 1e-06), maxit = 1000, normtol = 1e-06, ngrad = min(100, 2 * nvar, nvar + 10), fvalquit = -Inf, prtlevel = 1)
+gradsamp(fn, gr, nvar, x0,dir="forward", 
+        f0 = fn(x0), g0 = gr(x0), 
+        samprad = c(1e-04, 1e-05, 1e-06), 
+        maxit = 1000, normtol = 1e-06, 
+        ngrad = min(100, 2 * nvar, nvar + 10),
+        fvalquit = -Inf, prtlevel = 1)
 }
 \arguments{
   \item{fn}{
@@ -72,7 +77,9 @@ J.V. Burke, A.S. Lewis and M.L. Overton,
   Copyright (c) 2010 Michael Overton for Matlab code and documentation,
   with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
-
+\seealso{
+\code{\link{hanso}}, \code{\link{bfgs}}, \code{\link{nlcg}},  \code{\link{shor}}
+}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]
@@ -85,8 +92,9 @@ grr <- function(x) { ## Gradient of 'fr'
   c(-400 * x1 * (x2 - x1 * x1) - 2 * (1 - x1),
     200 *      (x2 - x1 * x1))
 }
-x0 <- matrix(rnorm(12),2,6)
-tmp <- gradsamp(fr,grr,2,x0)
+#x0 <- matrix(rnorm(12),2,6)
+x0 <- c(1.2,1)
+tmp <- gradsamp(fr,grr,x0=x0,maxit=100)
 tmp
 
 #using Nesterov's function

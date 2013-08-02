@@ -10,7 +10,7 @@ function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad 
     else if(class(x0) == "matrix"){
       nvar <- nrow(x0)
       nstart <- ncol(x0)
-      if(nstart>1) stop("gradient sampling does not support multiple starting point, please use only on point")
+      #if(nstart>1) stop("gradient sampling does not support multiple starting point, please use only on point")
     }
     else stop("unknown initial value matrix, please enter a numeric vector or matrix")
   }
@@ -25,8 +25,8 @@ function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad 
     }
   }  
   
-  #x0=as.matrix(x0)
-  #nstart <- ncol(x0)
+  x0=as.matrix(x0)
+  nstart <- ncol(x0)
   f  <-  c()
   x  <-  matrix(NA,nvar,nstart)
   g  <-  matrix(NA,nvar,nstart)

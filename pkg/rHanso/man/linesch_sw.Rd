@@ -12,7 +12,8 @@ with CG, where strong Wolfe condition needed for
   convergence analysis
 }
 \usage{
-linesch_sw(fn, gr, x0,dir="forward", d, f0 = fn(x0), grad0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
+linesch_sw(fn, gr, x0,dir="forward", d, f0 = fn(x0), 
+          grad0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
 }
 
 \arguments{
@@ -72,7 +73,9 @@ Jorge Nocedal and   Stephen J. Wright
   Copyright (c) 2010 Michael Overton for Matlab code and documentation,
   with permission converted to R by Abhirup Mallik (and Hans W Borchers).
 }
-
+\seealso{
+\code{\link{linesch_ww}}
+}
 \examples{
 fr <- function(x) {   ## Rosenbrock Banana function
   x1 <- x[1]
