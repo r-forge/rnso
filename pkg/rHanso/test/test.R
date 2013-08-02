@@ -65,3 +65,18 @@ broyden <- function(x){
 }
 res <- hanso(broyden,nvar=10)
 
+#generalized brown function problem 13
+
+genbrown <- function(x){
+  n <- length(x)
+  k <-floor(n/2)
+  sum <-0
+  for(j in 1:k){
+    i <- 2*j
+    sum <- sum + (x[i-1]^2)^(x[i]^2+1)+(x[i]^2)^(x[i-1]^2+1)
+  }
+  sum
+}
+
+
+
