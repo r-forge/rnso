@@ -51,9 +51,11 @@ fchainwood <- function(x){
   }
   sum
 }
-res=hanso(fchainwood,nvar=6)
+res=hanso(fchainwood,x0=c(-3,-1,-3,-1,-2,0))
+#compare with optim
+resoptim = optim(c(-3,-1,-3,-1,-2,0),fchainwood)
 
-#generalized broyden tridiagonal function
+#generalized broyden tridiagonal function prob 5
 broyden <- function(x){
   n <- length(x)
   x <- c(0,x,0)
@@ -74,6 +76,26 @@ genbrown <- function(x){
   for(j in 1:k){
     i <- 2*j
     sum <- sum + (x[i-1]^2)^(x[i]^2+1)+(x[i]^2)^(x[i-1]^2+1)
+  }
+  sum
+}
+
+fnsphere <- function(x){
+  sum(x*x)
+}
+
+grsphere <- function(x){
+  2*x
+}
+
+#nonsmooth version fo brown function
+#http://napsu.karmitsa.fi/publications/largetest.pdf (prob2.7)
+nsbrown <- function(x)
+{
+  n <- length(x)
+  sum <- 0
+  for (i in 1:(n-1)){
+    sum <- sum + abs(x[i])^(x[i+1]^2+1)+abs(x[i+1])^(x[i]^2+1)
   }
   sum
 }
