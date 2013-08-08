@@ -71,6 +71,7 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
       fp1 <- cbind(fp1, fpx)
       iflag <- cbind(iflag, iflagx)
       icount <- icount + ict
+    }
     } else {
       if (pnew > 0) {
 	tmp <- fn(xp, h, core_data)
@@ -79,8 +80,7 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
 	ictrp  <- tmp$ict
 	icount <- icount + sum(ictrp) 
       }
-    }
-  }  
+    }  
   if (pnew > 0) {
     fp[, newindex] <- fp1
     iflago[newindex] <- iflag
