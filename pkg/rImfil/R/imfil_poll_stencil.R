@@ -23,6 +23,9 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
   sgood <- 0
   fval <- matrix(0, vsize, 1)
   icount <- 0
+  pold <- 0
+  dx1 <- c()
+  xp1 <- c()
   stencil_type <- options$stencil
   if (stencil_type == 1) {
     for (i in 1:vsize) {
@@ -109,6 +112,7 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
     }
     good_values <- good_fp
   }
-  list(oldindex = oldindex, oldpoints = oldpoints, oldvalues = oldvalues,
-	oldflags = oldflags)
+  list(best_value = best_value, best_value_f = best_value_f, best_point = best_point,
+      icount = icount, sgood = sgood, good_points = good_points, good_values = good_values,
+      good_dx = good_dx, good_df = good_df, failed_points = failed_points)
 }
