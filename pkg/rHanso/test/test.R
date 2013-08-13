@@ -77,6 +77,7 @@ broyden <- function(x){
   sum
 }
 res <- hanso(broyden,nvar=10)
+res <- hanso(broyden,x0=rep(-1,10))
 
 #generalized brown function problem 13
 

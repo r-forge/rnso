@@ -1,5 +1,7 @@
 gradsamp <-
-function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6),maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, prtlevel  =  1){
+function(fn,gr=NULL,nvar,x0 = NULL, upper = 1, lower = 0, f0  =  fn(x0), g0  =  gr(x0), samprad  =  c(1e-4,1e-5,1e-6), 
+         maxit  =  1000,normtol  =  1e-6, ngrad  =  min(100,2*nvar,nvar+10), fvalquit  =  -Inf, 
+         prtlevel  =  1){
   if(!is.null(x0)){
     
     if(class(x0) == "numeric"){
@@ -16,14 +18,10 @@ function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad 
   }
   else{
     nstart <- 1
-    x0 <- matrix(rnorm(nvar*nstart),nvar,nstart)
+    M  <- matrix(runif(nvar*nstart), nrow = nvar, ncol = nstart)
+    x0 <- (upper - lower) * M + lower
   }
-  
-  if(is.null(gr)){
-    gr <- function(x){
-      grad_nso(fn,x,dir="forward")
-    }
-  }  
+   
   
   x0=as.matrix(x0)
   nstart <- ncol(x0)
@@ -51,7 +49,7 @@ function(fn,gr=NULL,nvar,x0,dir="forward",f0  =  fn(x0), g0  =  gr(x0), samprad 
       
     } 
     else {
-	tmp  <-  gradsamp1run(fn,gr,x0[,run],dir,nvar,f0,g0,samprad,maxit,normtol,ngrad,fvalquit,prtlevel)
+	tmp  <-  gradsamp1run(fn,gr,x0[,run],nvar,f0,g0,samprad,maxit,normtol,ngrad,fvalquit,prtlevel)
 	x[,run]  <-  tmp$x
 	f[run]  <-  tmp$f
 	g[,run]  <-  tmp$g

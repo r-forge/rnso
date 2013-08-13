@@ -1,4 +1,4 @@
-shor1run <- function(fn,gr,x0,dir="forward", maxit = 1000,  fvalquit = -Inf, beta = 0.5,
+shor1run <- function(fn,gr,x0, maxit = 1000,  fvalquit = -Inf, beta = 0.5,
                      normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, 
                      ngrad = 0, rescale = 0, strongwolfe = 0, useprevstep = 0,
                      wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE,prtlevel=1){
@@ -55,7 +55,7 @@ shor1run <- function(fn,gr,x0,dir="forward", maxit = 1000,  fvalquit = -Inf, bet
     gprev <- g
     if(strongwolfe){
       nfeval <- NaN
-      res_sw <- linesch_sw(fn,gr,x,dir,p,f,g,wolfe1,wolfe2,fvalquit,prtlevel)
+      res_sw <- linesch_sw(fn,gr,x,p,f,g,wolfe1,wolfe2,fvalquit,prtlevel)
       alpha <- res_sw$alpha
       x <- res_sw$x
       f <- res_sw$f
@@ -71,7 +71,7 @@ shor1run <- function(fn,gr,x0,dir="forward", maxit = 1000,  fvalquit = -Inf, bet
       fevalrec <- NaN
     }
     else{
-      res_ww <- linesch_ww(fn,gr,x,dir,p,f,g,wolfe1,wolfe2,fvalquit,prtlevel)
+      res_ww <- linesch_ww(fn,gr,x,p,f,g,wolfe1,wolfe2,fvalquit,prtlevel)
       alpha <- res_ww$alpha
       x <- res_ww$xalpha
       f <- res_ww$falpha

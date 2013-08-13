@@ -8,7 +8,7 @@ Line search enforcing weak Wolfe conditions, suitable
            for minimizing both smooth and nonsmooth functions. Intended to be called from Hanso, but can be used by itself also.
 }
 \usage{
-linesch_ww(fn, gr, x0,dir="forward", d, fn0 = fn(x0), 
+linesch_ww(fn, gr, x0, d, fn0 = fn(x0), 
         gr0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
 }
 \arguments{
@@ -21,7 +21,6 @@ A function to return the gradient for fn(x).
   \item{x0}{
 initial point
 }
-\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
   \item{d}{
 search direction
 }
@@ -126,7 +125,7 @@ grr <- function(x) { ## Gradient of 'fr'
     200 *      (x2 - x1 * x1))
 }
 
-linesch_ww(fr,grr,c(-1.2,1),c(1,1),dir="f")
+linesch_ww(fr,grr,c(-1.2,1),c(1,1))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

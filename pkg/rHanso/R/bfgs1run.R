@@ -1,5 +1,5 @@
 bfgs1run <-
-function(fn, gr, x0, dir="forward",H0 = NULL, maxit = 1000,  fvalquit = -Inf,
+function(fn, gr, x0,H0 = NULL, maxit = 1000,  fvalquit = -Inf,
                      normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, 
                      ngrad = 0, scale = 1, strongwolfe = 0, 
                      wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE,prtlevel=1)
@@ -62,7 +62,7 @@ function(fn, gr, x0, dir="forward",H0 = NULL, maxit = 1000,  fvalquit = -Inf,
         gprev <- g  # for BFGS update
 
         if(strongwolfe){
-	  sls <- linesch_sw(fn, gr, x,dir, d = p, f0 = fn(x), grad0 = gr(x),
+	  sls <- linesch_sw(fn, gr, x, d = p, f0 = fn(x), grad0 = gr(x),
                           c1 = wolfe1, c2 = wolfe2, fvalquit, prtlevel)
 		    alpha <- sls$alpha
 		    x <- sls$x
@@ -71,7 +71,7 @@ function(fn, gr, x0, dir="forward",H0 = NULL, maxit = 1000,  fvalquit = -Inf,
 		    fail <- sls$fail
         }
         else{
-        wls <- linesch_ww(fn, gr, x,dir, d = p, fn0 = fn(x), gr0 = gr(x),
+        wls <- linesch_ww(fn, gr, x, d = p, fn0 = fn(x), gr0 = gr(x),
                           c1 = wolfe1, c2 = wolfe2)
         alpha <- wls$alpha
         x <- as.matrix(wls$xalpha)

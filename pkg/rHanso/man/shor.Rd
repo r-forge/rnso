@@ -7,9 +7,8 @@ Shor's R Algorithm
 Shor's R algorithm for unconstrained minimization of smooth and non smooth functions.
 }
 \usage{
-shor(fn, gr,dir="forward", nvar = 0, nstart = 10, 
-    x0 = NULL, maxit = 1000, fvalquit = -Inf,
-    beta = 0.5, normtol = 1e-06, xnormquit = Inf,
+shor(fn, gr,nvar = 0, nstart = 10, x0 = NULL,upper = 1, lower = 0, 
+    maxit = 1000, fvalquit = -Inf, beta = 0.5, normtol = 1e-06, xnormquit = Inf,
     evaldist = 1e-04, ngrad = 0, rescale = 0,
     strongwolfe = 0, useprevstep = 0, wolfe1 = 1e-04,
     wolfe2 = 0.5, quitLSfail = TRUE, prtlevel = 1)
@@ -22,7 +21,7 @@ A function to be minimized. fn(x) takes input as a vector of parameters over whi
   \item{gr}{
 Optional input. A function to return the gradient for fn(x). If not provided, will be calculated internally.
 }
-\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
+
   \item{nvar}{
 Number of parameters that fn() takes.
 }
@@ -32,6 +31,8 @@ Number of initial guesses. Default is 10.
   \item{x0}{
 Matrix, with dimension (nvar x nstart), each column represent an initial guess.
 }
+\item{upper}{upper bound for the initial value}
+\item{lower}{lower bound for the initial value}
   \item{maxit}{
 maximum number of iterations. 
 }
@@ -106,12 +107,20 @@ Returns a list containing the following fields:
 \code{\link{hanso}}, \code{\link{gradsamp}}, \code{\link{nlcg}},  \code{\link{bfgs}}
 }
 \examples{
-fnNesterov2 <- function(x) {
- n <- length(x)
- x2 <- x[2:n]; x1 <- x[1:(n-1)]
- 1/4*abs((x[1]-1)) + sum(abs(x2-2*abs(x1)+1))
-}
-res=shor(fnNesterov2,nvar=5)
-res$f
+nesterov_f <- function(x) {
+    x1 <- x[1]; x2 <- x[2]
+    1/4*(x1-1)^2 + abs(x2 - 2*x1^2+1)
+ }
+
+nesterov_g <- function(x) {     # analytical gradient
+    g <- matrix(NA, 2, 1)
+    x1 <- x[1]; x2 <- x[2]
+    sgn <- sign(x2 - 2*x1^2 + 1)
+    if (sgn != 0) {
+        g[1] <- 0.5*(x1-1) - sgn*4*x1
+        g[2] <- sgn
+    }
+    g
+ }
 }
 \keyword{ optimize }

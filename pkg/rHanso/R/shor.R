@@ -1,5 +1,5 @@
-shor <- function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0=NULL, maxit = 1000,  fvalquit = -Inf, beta = 0.5,
-                     normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, 
+shor <- function(fn,gr=NULL,nvar=0,nstart=10,x0=NULL, upper = 1, lower = 0, maxit = 1000,  
+                 fvalquit = -Inf, beta = 0.5, normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, 
                      ngrad = 0, rescale = 0, strongwolfe = 0, useprevstep = 0,
                      wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE,prtlevel=1)
                      {
@@ -19,13 +19,8 @@ shor <- function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0=NULL, maxit = 1000
   }
   else{
     nstart <- 10
-    x0 <- matrix(rnorm(nvar*nstart),nvar,nstart)
-  }
-  
-  if(is.null(gr)){
-    gr <- function(x){
-      grad_nso(fn,x,dir="forward")
-    }
+    M  <- matrix(runif(nvar*nstart), nrow = nvar, ncol = nstart)
+    x0 <- (upper - lower) * M + lower
   }
   
   
@@ -40,7 +35,7 @@ shor <- function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0=NULL, maxit = 1000
   svrec <- list()
   
   for(run in 1:nstart){
-    res <- shor1run(fn,gr,x0[,run],dir, maxit,  fvalquit, beta,
+    res <- shor1run(fn,gr,x0[,run], maxit,  fvalquit, beta,
                     normtol, xnormquit, evaldist, 
                     ngrad, rescale, strongwolfe, useprevstep,
                     wolfe1, wolfe2, quitLSfail,prtlevel)

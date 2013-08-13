@@ -12,7 +12,7 @@ with CG, where strong Wolfe condition needed for
   convergence analysis
 }
 \usage{
-linesch_sw(fn, gr, x0,dir="forward", d, f0 = fn(x0), 
+linesch_sw(fn, gr, x0, d, f0 = fn(x0), 
           grad0 = gr(x0), c1 = 0, c2 = 0.5, fvalquit = -Inf, prtlevel = 0)
 }
 
@@ -26,7 +26,6 @@ A function to return the gradient for fn(x).
   \item{x0}{
 initial point
 }
-\item{dir}{direction of gradient approximation to be used. Choose from ("forward","backward","central")}
   \item{d}{
 search direction
 }
@@ -89,6 +88,6 @@ grr <- function(x) { ## Gradient of 'fr'
     200 *      (x2 - x1 * x1))
 }
 
-res=linesch_sw(fr,grr,c(-1.2,1),c(1,1),dir="f")
+res=linesch_sw(fr,grr,c(-1.2,1),c(1,1))
 }
 \keyword{ optimize }

@@ -1,4 +1,4 @@
-nlcg <- function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0 = NULL,
+nlcg <- function(fn,gr=NULL,nvar=0,nstart=10,x0 = NULL, upper = 1, lower = 0, 
 		     H0 = NULL, maxit = 1000,  fvalquit = -Inf,prtlevel=0,version="C",
                      normtol = 1e-6, xnormquit = Inf, evaldist = 1e-4, ngrad = 0,
                      scale = 1, wolfe1 = 1e-4, wolfe2 = 0.5, quitLSfail = TRUE,
@@ -16,14 +16,10 @@ nlcg <- function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0 = NULL,
     }else stop("unknown initial value matrix, please enter a numeric vector or matrix")
   }else{
     nstart <- 10
-    x0 <- matrix(rnorm(nvar*nstart),nvar,nstart)
+    M  <- matrix(runif(nvar*nstart), nrow = nvar, ncol = nstart)
+    x0 <- (upper - lower) * M + lower
   }
   
-  if(is.null(gr)){
-    gr <- function(x){
-      grad_nso(fn,x,dir="forward")
-    }
-  }
   
 			x <- matrix(NA,nvar,nstart)
 			f <- c()
@@ -32,7 +28,7 @@ nlcg <- function(fn,gr=NULL,dir="forward",nvar=0,nstart=10,x0 = NULL,
 			alpharec <- list()
 			message <- list()
 			for(run in 1:nstart){
-			tmp <- nlcg1run(fn, gr, x0[,run],dir, H0, maxit,  fvalquit,
+			tmp <- nlcg1run(fn, gr, x0[,run], H0, maxit,  fvalquit,
                       strongwolfe,version,prtlevel,
                      normtol, xnormquit, evaldist, ngrad,
                      scale, wolfe1, wolfe2, quitLSfail)
