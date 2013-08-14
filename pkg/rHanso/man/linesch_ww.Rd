@@ -127,7 +127,5 @@ grr <- function(x) { ## Gradient of 'fr'
 
 linesch_ww(fr,grr,c(-1.2,1),c(1,1))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ optimization }
 

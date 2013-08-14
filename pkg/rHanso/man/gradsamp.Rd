@@ -110,5 +110,6 @@ tmp
 #res
 }
 
-\keyword{ optimize, nonsmooth}
+\keyword{optimize}
+\keyword{nonsmooth}
 

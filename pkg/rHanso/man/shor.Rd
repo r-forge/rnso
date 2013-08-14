@@ -13,7 +13,6 @@ shor(fn, gr,nvar = 0, nstart = 10, x0 = NULL,upper = 1, lower = 0,
     strongwolfe = 0, useprevstep = 0, wolfe1 = 1e-04,
     wolfe2 = 0.5, quitLSfail = TRUE, prtlevel = 1)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fn}{
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.

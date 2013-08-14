@@ -29,11 +29,10 @@ The main functions of this package are:
 }
 }
 \author{
-Abhirup Mallik and Hans W Borchers
-Maintainer: Abhirup Mallik \email{malli066@umn.edu}
+Abhirup Mallik \email{malli066@umn.edu} and Hans W Borchers
 }
 \references{
-A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008.\cr
+A.S. Lewis and M.L. Overton, Nonsmooth Optimization via BFGS, 2008.
 URL: http://www.cs.nyu.edu/overton/papers/
 
 J.V. Burke, A.S. Lewis and M.L. Overton, A Robust Gradient Sampling 
