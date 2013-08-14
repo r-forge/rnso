@@ -13,7 +13,7 @@ BFGS is normally used for optimizing smooth, not necessarily convex,
    criterion that applies for both cases, described above.
 }
 \usage{
-bfgs(fn, gr=NULL, nvar=0, nstart = 10, x0 = NULL, upper = 1,
+bfgs(fn, gr, nvar=0, nstart = 10, x0 = NULL, upper = 1,
       lower = 0,  maxit = 1000, normtol = 1e-06,
       fvalquit = -Inf, xnormquit = Inf, nvec = 0,
       prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04,

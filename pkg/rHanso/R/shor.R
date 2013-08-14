@@ -1,4 +1,4 @@
-shor <- function(fn, gr = NULL, nvar = 0, nstart = 10, x0 = NULL, upper = 1, lower = 0, maxit = 1000, fvalquit = -Inf, 
+shor <- function(fn, gr, nvar = 0, nstart = 10, x0 = NULL, upper = 1, lower = 0, maxit = 1000, fvalquit = -Inf, 
   beta = 0.5, normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, rescale = 0, strongwolfe = 0, 
   useprevstep = 0, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, prtlevel = 1) {
   

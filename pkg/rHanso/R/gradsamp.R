@@ -1,4 +1,4 @@
-gradsamp <- function(fn, gr = NULL, nvar, x0 = NULL, upper = 1, lower = 0, f0 = fn(x0), g0 = gr(x0), samprad = c(1e-04, 
+gradsamp <- function(fn, gr, nvar, x0 = NULL, upper = 1, lower = 0, f0 = fn(x0), g0 = gr(x0), samprad = c(1e-04, 
   1e-05, 1e-06), maxit = 1000, normtol = 1e-06, ngrad = min(100, 2 * nvar, nvar + 10), fvalquit = -Inf, 
   prtlevel = 1) {
   if (!is.null(x0)) {

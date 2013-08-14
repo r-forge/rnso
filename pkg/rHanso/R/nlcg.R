@@ -1,4 +1,4 @@
-nlcg <- function(fn, gr = NULL, nvar = 0, nstart = 10, x0 = NULL, upper = 1, lower = 0, H0 = NULL, maxit = 1000, 
+nlcg <- function(fn, gr, nvar = 0, nstart = 10, x0 = NULL, upper = 1, lower = 0, H0 = NULL, maxit = 1000, 
   fvalquit = -Inf, prtlevel = 0, version = "C", normtol = 1e-06, xnormquit = Inf, evaldist = 1e-04, ngrad = 0, 
   scale = 1, wolfe1 = 1e-04, wolfe2 = 0.5, quitLSfail = TRUE, strongwolfe = 1) {
   if (!is.null(x0)) {

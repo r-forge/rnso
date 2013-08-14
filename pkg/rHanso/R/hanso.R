@@ -1,4 +1,4 @@
-hanso <- function(fn, gr = NULL, x0 = NULL, upper = 1, lower = 0, nvar = 0, nstart = 10, maxit = 1000, maxitgs = 100, 
+hanso <- function(fn, gr, x0 = NULL, upper = 1, lower = 0, nvar = 0, nstart = 10, maxit = 1000, maxitgs = 100, 
   normtol = 1e-06, fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, 
   wolfe2 = 0.5, quitLSfail = 1, ngrad = min(100, 2 * nvar, nvar + 10), evaldist = 1e-04, H0 = diag(nvar), 
   scale = 1, samprad = c(1e-04, 1e-05, 1e-06)) {

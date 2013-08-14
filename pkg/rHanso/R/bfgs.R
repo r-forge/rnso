@@ -1,4 +1,4 @@
-bfgs <- function(fn, gr = NULL, nvar = 0, nstart = 10, x0 = NULL, upper = 1, lower = 0, maxit = 1000, normtol = 1e-06, 
+bfgs <- function(fn, gr, nvar = 0, nstart = 10, x0 = NULL, upper = 1, lower = 0, maxit = 1000, normtol = 1e-06, 
     fvalquit = -Inf, xnormquit = Inf, nvec = 0, prtlevel = 1, strongwolfe = 0, wolfe1 = 1e-04, wolfe2 = 0.5, 
     quitLSfail = 1, ngrad = 0, evaldist = 1e-04, H0 = NULL, scale = 1) {
     
