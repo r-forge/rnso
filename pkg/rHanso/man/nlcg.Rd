@@ -19,7 +19,7 @@ nlcg(fn, gr = NULL,nvar = 0, nstart = 10,
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
 }
   \item{gr}{
-Optional input. A function to return the gradient for fn(x). If not provided, will be calculated internally.
+A function to return the gradient for fn(x). 
 }
 
   \item{nvar}{

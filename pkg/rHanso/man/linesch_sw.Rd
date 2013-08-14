@@ -52,7 +52,7 @@ prints messages if this is 1
 }
 
 \value{
-returns a list containing the following fields: \cr
+returns a list containing the following fields: 
 \item{alpha}{steplength satisfying Wolfe conditions}
 \item{x}{x0 + alpha*d}
 \item{f}{f(x0 + alpha d)}

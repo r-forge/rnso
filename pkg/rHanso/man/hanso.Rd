@@ -21,7 +21,7 @@ hanso(fn, gr = NULL, x0 = NULL,upper = 1, lower = 0, nvar = 0, nstart = 10,
 A function to be minimized. fn(x) takes input as a vector of parameters over which minimization is to take place. fn() returns a scaler.
 }
   \item{gr}{
-Optional input. A function to return the gradient for fn(x). 
+A function to return the gradient for fn(x). 
 }
   \item{x0}{
 Matrix, with dimension (nvar x nstart), each column represent an initial guess.
