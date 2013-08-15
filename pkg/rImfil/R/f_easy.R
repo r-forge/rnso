@@ -1,4 +1,4 @@
-f_easy <- function(x){
+f_easy <- function(x, h, core_data){
   fv <- sum(x*x)
   fv <- fv*(1 + 0.1*sin(10*(x[1]+x[2])))
   ifail <- 0

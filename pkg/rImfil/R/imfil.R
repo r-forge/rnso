@@ -4,7 +4,7 @@ imfil <- function(x0, fn, budget, bounds, options = imfil_optset()){
   n <- length(x0)
   imfil_smooth_problem <- options$smooth_problem
   imfil_complete_history <- options$complete_history
-  if (imfil_smooth_problem){
+  if (imfil_smooth_problem == 1){
     #TODO
   }
   imfil_fscale <- options$fscale
@@ -18,4 +18,8 @@ imfil <- function(x0, fn, budget, bounds, options = imfil_optset()){
   
   z0 <- (x0 -qbounds[,1])/dbounds
   tmp <- imfil_core(z0, f_internal, budget, core_data, bounds)
+  z <- tmp$
+  histout <- tmp$
+  complete_history <- tmp$
+  ifail <- tmp$
 }
