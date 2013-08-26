@@ -1,4 +1,4 @@
-imfil_core <- function (x0, fn, budget, core_data, bounds) {
+imfil_core <- function (x0, fn = f_internal, budget, core_data, bounds) {
   #global imfil_fscale
   fcount <- 0
   ifailed <- 0
@@ -113,7 +113,7 @@ imfil_core <- function (x0, fn, budget, core_data, bounds) {
   } else {
     failc <- 0
     itc <- 0
-    while (itc < imfil_maxit*n, && fval > imfil_target && npgrad >= stol && nfail == 0 && fcount < budget && sflag > 0) {
+    while (itc < imfil_maxit*n && fval > imfil_target && npgrad >= stol && nfail == 0 && fcount < budget && sflag > 0) {
       itc <- itc + 1
       iteration_data$itc <- itc
       fc <- fval

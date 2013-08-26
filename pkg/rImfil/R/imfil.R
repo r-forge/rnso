@@ -18,8 +18,8 @@ imfil <- function(x0, fn, budget, bounds, options = imfil_optset()){
   
   z0 <- (x0 -qbounds[,1])/dbounds
   tmp <- imfil_core(z0, f_internal, budget, core_data, bounds)
-  z <- tmp$
-  histout <- tmp$
-  complete_history <- tmp$
-  ifail <- tmp$
+  z <- tmp$x
+  histout <- tmp$histout
+  complete_history <- tmp$complete_history
+  ifail <- tmp$ifailed
 }
