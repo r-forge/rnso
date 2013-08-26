@@ -67,7 +67,7 @@ parallel_armijo <- function(fn, sdir, fold, xc, h, obounds, core_data) {
       if (imfil_least_squares == 1) fres <- frest[, it]
       x <- xt
       iarm <- min(it, maxitarm-1)
-    } else {
+    } } else {
       iarm <- -1
     }
     while(iarm < maxitarm && aflag == 1) {
