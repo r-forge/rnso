@@ -49,6 +49,8 @@ imfil_core <- function (x0, fn = f_internal, budget, core_data, bounds) {
   
   sflag <- 1
   while (ns < nscal && fcount <= budget && imfil_maxfail && stop_now == 0 && fval > imfil_target) {
+    ns <- ns + 1
+    h <- dscal[ns]
     if (imfil_noise_aware > 0 || fcount == 0 || imfil_scale_aware > 0) {
       tmp <- fn(x, h, core_data)
       funs <- tmp$fv
