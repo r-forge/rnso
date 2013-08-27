@@ -56,7 +56,7 @@ imfil_core <- function (x0, fn = f_internal, budget, core_data, bounds) {
       funs <- tmp$fv
       iff <- tmp$ifaile
       icf <- tmp$icount
-      noise_val <- tmp$noise_val # not there in f_easy ?
+      #noise_val <- tmp$noise_val # not there in f_easy ?
       fval <- f_to_vals(funs, imfil_least_squares)
       icount <- icf
     } else {

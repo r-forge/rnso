@@ -1,7 +1,8 @@
 f_to_vals <- function(funs, least_squares){
+  funs <- as.matrix(funs)
   m <- nrow(funs)
   n <- ncol(funs)
-  if (m == 0 && n == 0){
+  if ((m == 0) && (n == 0)){
     fvals <- c()
   }
   if(least_squares == 1){
