@@ -67,7 +67,12 @@ imfil_core <- function (x0, fn = f_internal, budget, core_data, bounds) {
       #funerr <- imfil_error_check() 
       imfil_target <- imfil_target/imfil_fscale
       imfil_function_delta <- imfil_function_delta/imfil_fscale
-      histout <- t(cbind(t(histout), t(cbind(1, fval, 0, 0, 0, t(x)))))
+      if (is.na(histout)){
+        histout <- rbind(1, fval, 0, 0, 0, as.matrix(x))
+      } else {
+        histout <- rbind(as.numeric(histout),1, fval, 0, 0, 0, as.matrix(x))
+      }
+      
       
       itc <- 0
       stencil_data <- create_stencil_data(options, imfil_fscale, noise_val, bounds)
