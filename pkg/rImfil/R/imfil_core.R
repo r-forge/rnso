@@ -1,4 +1,4 @@
-imfil_core <- function (x0, fn = f_internal, budget, core_data, bounds) {
+imfil_core <- function (x0, fn , budget, core_data, bounds) {
   #global imfil_fscale
   fcount <- 0
   ifailed <- 0
@@ -52,11 +52,11 @@ imfil_core <- function (x0, fn = f_internal, budget, core_data, bounds) {
     ns <- ns + 1
     h <- dscal[ns]
     if (imfil_noise_aware > 0 || fcount == 0 || imfil_scale_aware > 0) {
-      tmp <- fn(x, h, core_data)
-      funs <- tmp$fv
-      iff <- tmp$ifaile
-      icf <- tmp$icount
-      #noise_val <- tmp$noise_val # not there in f_easy ?
+      tmp <- f_internal(x, h, core_data)
+      funs <- tmp$fx
+      iff <- tmp$iff
+      icf <- tmp$icf
+      noise_val <- tmp$tol # remember! fn is f_internal not f_easy
       fval <- f_to_vals(funs, imfil_least_squares)
       icount <- icf
     } else {
@@ -78,7 +78,7 @@ imfil_core <- function (x0, fn = f_internal, budget, core_data, bounds) {
       stencil_data <- create_stencil_data(options, imfil_fscale, noise_val, bounds)
       iteration_data <- list(h = h, obounds = obounds, itc = itc, xb = x,
 	fobjb = fval, funsb = funs, complete_history = complete_history, 
-	f_internal = f, core_data = core_data, options = options)
+	f_internal = fn, core_data = core_data, options = options)
     } else {
       iteration_data$h <- h
       stencil_data$noise_val <- noise_val

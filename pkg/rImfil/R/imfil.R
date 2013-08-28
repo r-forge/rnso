@@ -17,7 +17,7 @@ imfil <- function(x0, fn, budget, bounds, options = imfil_optset()){
   #if(badargs)
   
   z0 <- (x0 -qbounds[,1])/dbounds
-  tmp <- imfil_core(z0, f_internal, budget, core_data, bounds)
+  tmp <- imfil_core(z0, fn, budget, core_data, bounds) # change: fn (=f_easy) is passed not f_internal.
   z <- tmp$x
   histout <- tmp$histout
   complete_history <- tmp$complete_history

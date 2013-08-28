@@ -10,7 +10,7 @@ f_internal <- function(x, h, core_data){
   fn    		   <- fun_data$fn
   qbounds		   <- fun_data$qbounds
   dbounds		   <- fun_data$dbounds
-  
+  x <- as.matrix(x)
   mx <- nrow(x)
   nx <- ncol(x)
   z <- x
@@ -20,13 +20,13 @@ f_internal <- function(x, h, core_data){
   func_type <- imfil_noise_aware + 10*imfil_scale_aware + 
 		100*imfil_simple_function + 1000*imfil_extra_argument
   if (func_type == 0) {
-    tmp <- fn(z)
-    fx  <- tmp$fx
-    iff <- tmp$iff
-    icf <- tmp$icf
+    tmp <- fn(z,h,core_data)
+    fx  <- tmp$fv
+    iff <- tmp$ifail
+    icf <- tmp$icount
     tol <- 0
   } else     if (func_type == 10) {
-    tmp <- fn(z, h)
+    tmp <- fn(z, h,core_data)
     fx  <- tmp$fx
     iff <- tmp$iff
     icf <- tmp$icf
@@ -103,6 +103,7 @@ f_internal <- function(x, h, core_data){
   } else { 
     stop("f_internal: func_type not found")
   }
+  fx <- as.matrix(fx)
   mf <- nrow(fx)
   nf <- ncol(fx)
   
@@ -113,8 +114,13 @@ f_internal <- function(x, h, core_data){
     if (imfil_least_squares == 1){
       val <- fx[, 1]*fx[, 1]/2
       scale_base <- val
-    }else imfil_fscale <- abs(imfil_fscale)*scale_base
-  }
+    }else scale_base <- max(abs(fx[1]))
+    if (scale_base == 0) {
+      imfil_fscale <- 1
+    } else {
+      imfil_fscale <- abs(imfil_fscale)*scale_base
+    }
+  }  
   if (imfil_least_squares == 0){
     fx <- fx/imfil_fscale
   } else {

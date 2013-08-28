@@ -3,3 +3,8 @@ f_easy
 setup_explore
 imfil_optset
 f_to_vals
+f_internal
+create_stencil_data
+imfil_create_scales
+single_point_hist_update
+

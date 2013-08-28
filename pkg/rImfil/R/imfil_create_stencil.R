@@ -1,10 +1,7 @@
 imfil_create_stencil <- function(options, n){
   stencil  <- options$stencil
   vstencil <- options$vstencil
-  
-  mv <- nrow(vstencil)
-  nv <- ncol(vstencil)
-  if (mv + nv > 0){
+  if (!is.null(vstencil)){
     stencil <- -1
   }
   if (stencil == -1){
