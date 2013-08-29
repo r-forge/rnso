@@ -1,4 +1,5 @@
 random_augment <- function(vin, k){
+  vin <- as.matrix(vin)
   n  <- nrow(vin)
   nn <- ncol(vin)
   if (k == 0) {

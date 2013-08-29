@@ -9,6 +9,6 @@ create_stencil_data <- function(options, imfil_fscale, noise_val, bounds){
   stencil_data <- list(stencil_delta = imfil_stencil_delta, 
 			svarmin = imfil_svarmin, 
 			noise_val = noise_val, 
-			bounds = bounds)
+			bounds = bounds, v = v)
   stencil_data			
 }
