@@ -12,7 +12,7 @@ manage_stencil_diff <- function(x,fn,funs,iteration_data,fcount, stencil_data,st
     v <- stencil_data$v
     vv <- imfil_augment_directions(x, v, h, options, bounds)
     complete_history <- iteration_data$complete_history
-    tmp <- stencil_diff(x, fn, h%*%vv, funs, iteration_data, complete_history)
+    tmp <- stencil_diff(x, fn, h*vv, funs, iteration_data, complete_history)
     sgrad <- tmp$grad
     fb <- tmp$best_value
     fbf <- tmp$best_value_f

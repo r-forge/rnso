@@ -24,12 +24,13 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
   fval <- matrix(0, vsize, 1)
   icount <- 0
   pold <- 0
-  dx1 <- c()
-  xp1 <- c()
+  dx1 <- matrix()
+  xp1 <- matrix()
+  xp <- matrix(NA, n, vsize)
   stencil_type <- options$stencil
   if (stencil_type == 1) {
     for (i in 1:vsize) {
-      xp[, 1] <- x + dx[, i]
+      xp[, i] <- x + dx[, i]
       if (isok(xp[, i], bounds) == 0) {
 	dx[, i] <- -dx[, i]
       }
@@ -39,8 +40,13 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
     xp[, i] <- x + dx[, i]
     if (isok(xp[, i], bounds)){
       pold <- pold +1
+      if(is.na(dx1)[1]) { 
+        dx1 <- dx[, i]
+        xp1 <- xp[, i]
+      } else {
       dx1 <- cbind(dx1, dx[, i])
       xp1 <- cbind(xp1, xp[, i])
+      }
     }
   }
   fp1 <- fp[, 1:pold]

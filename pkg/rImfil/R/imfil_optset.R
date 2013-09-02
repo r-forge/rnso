@@ -14,7 +14,7 @@ imfil_optset <- function(){
                 res$explore <- 0
          res$extra_argument <- 0
         res$extra_arg_value <- c()
-                 res$fscale <- -1.2000
+                 res$fscale <- 1.2000
          res$function_delta <- -1
           res$stencil_delta <- -1
           res$least_squares <- 0

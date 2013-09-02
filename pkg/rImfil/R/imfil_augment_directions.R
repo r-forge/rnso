@@ -4,7 +4,7 @@ imfil_augment_directions <- function(x, vin, h, options, bounds) {
   new_directions <- options$add_new_directions
   lnew <- length(new_directions)
   
-  if (lenw > 0) {
+  if (lnew > 0) {
     dbv <- bounds[, 2] - bounds[, 1]
     db <- diag(dbv)
     unscaled_x <- db%*%x + bounds[, 1]

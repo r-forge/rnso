@@ -1,5 +1,5 @@
 stencil_diff <- function(x, fn, dx, fc, iteration_data, complete_history) {
-  core_data <- interation_data$core_data
+  core_data <- iteration_data$core_data
   h <- iteration_data$h
   bounds <- iteration_data$bounds
   options <- core_data$options
