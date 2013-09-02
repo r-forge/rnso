@@ -7,7 +7,7 @@ collect_stencil_data <- function (good_points, good_values, failed_points,
   xbest_value <- min(good_scalers)
   ibest <- which.min(good_scalers)
   xbest_point <- good_points[, ibest]
-  xbest_value_f <- good_values[, ibest]
+  xbest_value_f <- good_values[ibest] # warning! check
   if (xbest_value < best_value_old) {
     best_value_old <- xbest_value
     best_value_old <- xbest_value_f
