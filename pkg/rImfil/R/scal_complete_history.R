@@ -8,7 +8,7 @@ scal_complete_history <- function(complete_history, x){
   nw <- ncol(winners)
   fhist <- matrix(NA, mw, 1)
   iquit <- 0
-  if (nw > 0){
+  if (!is.na(winners)){
     for (i in 1:nw){
       d <- norm(x-winners[, i], "I")
       if (d < 1e-12 ){
@@ -19,7 +19,7 @@ scal_complete_history <- function(complete_history, x){
       }
     }
   }
-  if (iquit == 0 && nl > 0) {
+  if (iquit == 0 && !is.na(losers)) {
     for (i in 1:nl) {
       d <- norm(x-losers[, i], 'I')
       if (d < 1e-12) {
@@ -30,5 +30,5 @@ scal_complete_history <- function(complete_history, x){
       }
     }
   }
-  list(fhist,iflaghist)
+  list(fhist = fhist,iflaghist = iflaghist)
 }

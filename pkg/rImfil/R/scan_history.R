@@ -16,7 +16,7 @@ scan_history <- function(complete_history, xp, fp, dx) {
       imold[i]  <- 1
     }
   }
-  oldindex <- (imold == 1)
+  oldindex <- as.numeric(imold == 1)
   list(oldindex = oldindex, oldpoints = oldpoints, oldvalues = oldvalues,
 	oldflags = oldflags)
 }

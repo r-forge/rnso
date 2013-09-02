@@ -54,11 +54,11 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
   dx <- dx1
   fp <- fp1
   tmp <- scan_history(complete_history, xp, fp, dx)
-  oldindex   <- tmp$oldindex
+  oldindex   <- as.numeric(tmp$oldindex)
   oldpoints  <- tmp$oldpoints
   oldvalues  <- tmp$oldvalues
   oldflags   <- tmp$oldflags
-  newindex <- !oldindex
+  newindex <- as.numeric(!oldindex)
   xp <- xp1[, newindex]
   iflago <- matrix(0, 1, vsize)
   if (sum(oldindex) > 0) {
@@ -70,20 +70,20 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
   iflag <- c()
   if (parallel == 0) {
     for (i in 1:pnew) {
-      tmp <- fn(xp, h, core_data)
+      tmp <- fn(xp[, i], h, core_data)
       fpx    <- tmp$fv
-      iflag  <- tmp$ifail
-      icount <- tmp$ict
+      iflagx  <- tmp$ifail
+      ict <- tmp$icount
       fp1 <- cbind(fp1, fpx)
       iflag <- cbind(iflag, iflagx)
       icount <- icount + ict
     }
     } else {
       if (pnew > 0) {
-	tmp <- fn(xp, h, core_data)
+	tmp <- fn(xp[, i], h, core_data)
 	fp1    <- tmp$fv
 	iflag  <- tmp$ifail
-	ictrp  <- tmp$ict
+	ictrp  <- tmp$icount
 	icount <- icount + sum(ictrp) 
       }
     }  
