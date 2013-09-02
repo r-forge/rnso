@@ -88,7 +88,7 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
       }
     }  
   if (pnew > 0) {
-    fp[, newindex] <- fp1
+    fp[newindex] <- fp1 ##something strange happening here. Warning!
     iflago[newindex] <- iflag
   }
   fp1 <- fp
