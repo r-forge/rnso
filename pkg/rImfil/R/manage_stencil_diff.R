@@ -1,7 +1,7 @@
 manage_stencil_diff <- function(x,fn,funs,iteration_data,fcount, stencil_data,stop_now) {
   
   if (stop_now == 0) {
-    opitons <- iteration_data$options
+    options <- iteration_data$options
     imfil_complete_history <- options$complete_history
     h <- iteration_data$h
     stencil_delta <- stencil_data$stencil_delta
@@ -25,7 +25,7 @@ manage_stencil_diff <- function(x,fn,funs,iteration_data,fcount, stencil_data,st
     
     focunt <- fcount + icount
     pgrad <- x - kk_proj(x - sgrad, obounds)
-    nrad <- norm(pgrad, "I")
+    npgrad <- norm(pgrad, "I")
     
     if (max(noise_val, svarmin) > svar) sflag <- 0
     if (stencil_delta > svar) {

@@ -7,14 +7,14 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
   
   best_point <- x
   if (least_squares == 1){
-    best_value <- sum(fc*fc)/2
+    best_value <- sum(dc*dc)/2
   } else {
-    best_value <- fc
+    best_value <- dc
   } 
-  best_value_f <- fc
+  best_value_f <- dc
   
   iflag <- matrix(0, vsize, 1)
-  m <- length(fc)
+  m <- length(dc)
   fp <- matrix(0, m, vsize)
   failed_points <- c()
   good_points   <- c()
@@ -111,9 +111,9 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
     good_dx <- dx1[, igood]
     for (ig in 1:sgood){
       if (least_squares == 1){
-	good_df[, ig] <- good_fp[, ig] - fc
+	good_df[, ig] <- good_fp[, ig] - dc
       } else {
-	good_df[ig] <- good_fp[ig] - fc
+	good_df[ig] <- good_fp[ig] - dc
       }
     }
     good_values <- good_fp

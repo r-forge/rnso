@@ -78,7 +78,7 @@ imfil_core <- function (x0, fn , budget, core_data, bounds) {
       stencil_data <- create_stencil_data(options, imfil_fscale, noise_val, bounds)
       iteration_data <- list(h = h, obounds = obounds, itc = itc, xb = x,
 	fobjb = fval, funsb = funs, complete_history = complete_history, 
-	f_internal = fn, core_data = core_data, options = options)
+	f_internal = fn, core_data = core_data, options = options, bounds = bounds)
     } else {
       iteration_data$h <- h
       stencil_data$noise_val <- noise_val
@@ -106,7 +106,7 @@ imfil_core <- function (x0, fn , budget, core_data, bounds) {
     jac <- tmp$jac
     iteration_data <- tmp$iteration_datap
     stop_now <- tmp$stop_now
-    histout <- t(cbind(t(histout), t(cbind(fcount, fval, npgrad, -1, -1, t(x)))))
+   # histout <- t(cbind(t(histout), t(cbind(fcount, fval, npgrad, -1, -1, t(x)))))
     gc <- sgrad
   }
   
