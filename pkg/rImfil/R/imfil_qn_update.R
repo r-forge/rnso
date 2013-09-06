@@ -15,7 +15,7 @@ imfil_qn_update <- function (fn, x, fval, sgrad, xc, gc, iteration_data,
   
   if (itc > 1) {
     epsb <- 1e-6
-    alis <- (x > obounds[, 1] + epsb) && (x < obounds[, 2] - epsb)
+    alist <- (x > obounds[, 1] + epsb) && (x < obounds[, 2] - epsb)
     if (quasi == 1) {
       hess <- bfupdate(x, xc, sgrad, gc, hessold, alist)
     } else if (hess == 1) {

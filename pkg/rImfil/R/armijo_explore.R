@@ -3,8 +3,8 @@ armijo_explore <- function (fn, sdir, fold, xc, h, core_data, obounds) {
   imfil_parallel <- options$parallel
   imfil_least_squares <- options$least_squares
   imfil_verbose <- options$verbose
-  beta <- imfil$armijo_reduction
-  maxitarm <- imfil$maxitarm
+  beta <- options$armijo_reduction
+  maxitarm <- options$maxitarm
   
   if (imfil_parallel == 0) {
     tmp <- serial_armijo(fn, sdir, fold, xc, h, obounds, core_data)

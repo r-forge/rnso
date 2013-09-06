@@ -10,5 +10,5 @@ reconcile_best_point <- function(funs, x, old_data) {
     new_data$funsb <- funs
     new_data$fobjb <- fval
   }
-  list(new_data, rflag)
+  list(new_data = new_data, rflag = rflag)
 }

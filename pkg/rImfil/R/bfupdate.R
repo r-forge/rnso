@@ -4,9 +4,9 @@ bfupdate <- function(x, xc, sgrad, gc, hess, alist) {
   y <- sgrad - gc
   s <- x - xc
   x <- hess %*% s
-  y <- pr %*% y
+  y <- as.numeric(pr) * y
   if (sum(y*s) > 0) {
-    hess <- pr %*% hess %*% pr + (y%*%t(y)/sum(t*s)) - pr%*%(z%*%t(z)/sum(s*z))%*%pr
+    hess <- as.numeric(pr) * hess * as.numeric(pr) + (y%*%t(y)/sum(t*s)) - as.numeric(pr)*(z%*%t(z)/sum(s*z))*as.numeric(pr)
     hess <- diag(n) - pr + hess
   }
   if (kappa(hess) > 1e6){
