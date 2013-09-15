@@ -1,6 +1,7 @@
 scal_complete_history <- function(complete_history, x){
   iflaghist <- -1
   losers <- complete_history$failed_points
+  losers = as.matrix(losers)
   ml <- nrow(losers)
   nl <- ncol(losers)
   winners <- complete_history$good_points
@@ -20,7 +21,7 @@ scal_complete_history <- function(complete_history, x){
     }
   }
   browser()
-  if (iquit == 0 && !is.null(losers)) {
+  if (iquit == 0 && !is.null(losers) && !is.na(nl)) {
     for (i in 1:nl) {
       d <- norm(as.matrix(x-losers[, i]), 'I')
       if (d < 1e-12) {

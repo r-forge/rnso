@@ -1,4 +1,5 @@
 imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_history) {
+  browser()
   options       <- core_data$options
   parallel      <- options$parallel
   least_squares <- options$least_squares
@@ -47,12 +48,14 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
       dx1 <- cbind(dx1, dx[, i])
       xp1 <- cbind(xp1, xp[, i])
       }
+#       dx1[, i] <- dx[, i]
+#       xp1[, i] <- xp[, i]
     }
   }
   fp1 <- fp[, 1:pold]
   xp <- xp1
   dx <- dx1
-  fp <- fp1
+  fp <- as.matrix(fp1)
   tmp <- scan_history(complete_history, xp, fp, dx)
   oldindex   <- as.numeric(tmp$oldindex)
   oldpoints  <- tmp$oldpoints
@@ -69,16 +72,16 @@ imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_his
   fp1 <- c()
   iflag <- c()
   if (parallel == 0) {
+    if(pnew > 0){ # had to add this line, not in orig code
     for (i in 1:pnew) {
-      tmp <- fn(xp[, i], h, core_data)
-      fpx    <- tmp$fv
-      iflagx  <- tmp$ifail
-      ict <- tmp$icount
-      fp1 <- cbind(fp1, fpx)
-      iflag <- cbind(iflag, iflagx)
-      icount <- icount + ict
-    }
-    } else {
+        tmp <- fn(xp[, i], h, core_data)
+        fpx    <- tmp$fv
+        iflagx  <- tmp$ifail
+        ict <- tmp$icount
+        fp1 <- cbind(fp1, fpx)
+        iflag <- cbind(iflag, iflagx)
+        icount <- icount + ict
+       }}} else {
       if (pnew > 0) {
 	tmp <- fn(xp[, i], h, core_data)
 	fp1    <- tmp$fv
