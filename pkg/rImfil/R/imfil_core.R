@@ -49,6 +49,7 @@ imfil_core <- function (x0, fn , budget, core_data, bounds) {
   
   sflag <- 1
   while (ns < nscal && fcount <= budget && imfil_maxfail && stop_now == 0 && fval > imfil_target) {
+    browser()
     ns <- ns + 1
     h <- dscal[ns]
     if (imfil_noise_aware > 0 || fcount == 0 || imfil_scale_aware > 0) {
@@ -96,7 +97,6 @@ imfil_core <- function (x0, fn , budget, core_data, bounds) {
     stol <- imfil_termtol*h
     iarm <- 0
     nfail <- 0
-    
     tmp <- manage_stencil_diff(x, fn, funs, iteration_data, fcount, stencil_data, stop_now)
     sdiff <- tmp$sdiff
     sgrad <- tmp$sgrad
