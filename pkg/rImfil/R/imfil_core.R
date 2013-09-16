@@ -1,12 +1,11 @@
 imfil_core <- function (x0, fn , budget, core_data, bounds) {
-  #global imfil_fscale
   fcount <- 0
   ifailed <- 0
   options <- core_data$options
   n <- length(x0)
   obounds <- matrix(0, n, 2)
   obounds[, 2] <- 1
-  
+  imfil_fscale <- options$fscale # was global in orig
   imfil_explore <- options$explore
   imfil_executive <- options$executive
   imfil_function_delta <- options$function_delta

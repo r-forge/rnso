@@ -5,6 +5,7 @@ f_internal <- function(x, h, core_data){
   imfil_least_squares     <- options$least_squares
   imfil_simple_function   <- options$simple_function
   imfil_extra_argument    <- options$extra_argument
+  imfil_fscale <- options$fscale # was global in orig
   exarg                   <- options$extra_arg_value
   fun_data 		   <- core_data$fun_data
   fn    		   <- fun_data$fn
