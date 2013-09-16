@@ -1,59 +1,58 @@
 \name{imfil}
 \alias{imfil}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Implicit filtering
+Minimization of noisy functions subject to explicit bound
+ constraints and hidden constraints
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This is an implementation of Kelly's Implicit filtering algorithm for minimizing functions under contrained and bounded space.
 }
 \usage{
 imfil(x0, fn, budget, bounds, options = imfil_optset())
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x0}{
-%%     ~~Describe \code{x0} here~~
+Initial iterate
 }
   \item{fn}{
-%%     ~~Describe \code{fn} here~~
+Objective function
 }
   \item{budget}{
-%%     ~~Describe \code{budget} here~~
+maximum cost
 }
   \item{bounds}{
-%%     ~~Describe \code{bounds} here~~
+The interval c(low, high) for x.
 }
   \item{options}{
-%%     ~~Describe \code{options} here~~
+options for the function. The defaults are set by imfil_optset()
 }
 }
+
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Implicit filtering solves bounded constrained optimization problems, where the goal is to minimize the objective function f subject to the condition that x remains in the feasible region. Implicit filtering is a sampling method. The optimization is controlled only by evaluating f at a cluster of points in the sample space. That evaluation determines the next cluster.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+\item{x}{estimated minimizer.}
+\item{histout}{iteration history. Updated after each nonlinear iteration. 
+}
+\item{complete_history}{complete evaluation history}
 }
 \references{
-%% ~put references to the literature/web site here ~
+Iterative Methods for Optimization, by C. T. Kelly
 }
 \author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+Converted by Abhirup Mallik and Hans Borchers from Matlab Code by C.T. Kelly
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
+\dontrun{
+fn <- f_easy
+bounds <- matrix(c(-1,-1,1,1),2,2)
+budget <- 40
+x0 <- matrix(c(0.5,0.5))
+results <- imfil(x0, fn, budget, bounds, options = imfil_optset())
 }
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}
+\keyword{ optimize }
+
