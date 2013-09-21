@@ -1,7 +1,7 @@
 collect_stencil_data <- function (good_points, good_values, failed_points,
 	best_point_old, best_value_old, best_value_f_old, fc, options) {
  
-  browser()
+  #browser()
   least_squares <- options$least_squares
   good_scalers <- f_to_vals(good_values, least_squares)
   xbest_value <- min(good_scalers)

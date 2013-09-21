@@ -1,5 +1,5 @@
 imfil_poll_stencil <- function(x, fn, dx, dc, bounds, core_data, h, complete_history) {
-  browser()
+ # browser()
   options       <- core_data$options
   parallel      <- options$parallel
   least_squares <- options$least_squares

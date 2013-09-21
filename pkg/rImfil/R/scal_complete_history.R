@@ -20,7 +20,7 @@ scal_complete_history <- function(complete_history, x){
       }
     }
   }
-  browser()
+  #browser()
   if (iquit == 0 && !is.null(losers) && !is.na(nl)) {
     for (i in 1:nl) {
       d <- norm(as.matrix(x-losers[, i]), 'I')

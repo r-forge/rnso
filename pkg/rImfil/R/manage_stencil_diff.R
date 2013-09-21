@@ -26,7 +26,7 @@ manage_stencil_diff <- function(x,fn,funs,iteration_data,fcount, stencil_data,st
     focunt <- fcount + icount
     pgrad <- x - kk_proj(x - sgrad, obounds)
     npgrad <- norm(pgrad, "I")
-    browser()
+    #browser()
     if(is.na(svar)) svar<- 0 # fix for svar being NA
     if (!is.na(svar)){ if (max(noise_val, svarmin) > svar) sflag <- 0} else{
       sflag <- 0

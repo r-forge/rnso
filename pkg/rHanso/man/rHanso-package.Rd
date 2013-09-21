@@ -11,7 +11,7 @@ both BFGS and gradient sampling methods. It also provides the users the option t
 }
 \details{
 \tabular{ll}{
-Package: \tab rnso\cr
+Package: \tab rHanso\cr
 Type: \tab Package\cr
 Version: \tab 0.2-1\cr
 Date: \tab 2013-07-26\cr

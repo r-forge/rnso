@@ -5,7 +5,7 @@ stencil_diff <- function(x, fn, dx, fc, iteration_data, complete_history) {
   options <- core_data$options
   parallel <- options$parallel
   least_squares <- options$least_squares
-  browser()
+  #browser()
   tmp <- imfil_poll_stencil(x, fn, dx, fc, bounds, core_data, h, complete_history)
   best_value <- tmp$best_value
   best_value_f <- tmp$best_value_f
@@ -21,7 +21,7 @@ stencil_diff <- function(x, fn, dx, fc, iteration_data, complete_history) {
   if (least_squares == 1) {
     fval <- sum(fc*fc)/2
   } else fval <- fc
-  browser()
+  #browser()
   tmp <- collect_stencil_data(good_points,good_values,failed_points, 
                 x,fval,fc,fc,options)
   sflag        <- tmp$sflag
